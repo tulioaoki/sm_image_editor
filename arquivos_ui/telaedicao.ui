@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>645</width>
+    <height>472</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cam view</string>
+  </property>
+  <widget class="QPushButton" name="cinzar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>86</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cinza</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="contraste">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>390</y>
+     <width>86</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Contraste</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="segmentar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>430</y>
+     <width>86</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Segmentar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blur">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>430</y>
+     <width>86</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Blur</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="slider_brilho">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>410</y>
+     <width>160</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sliderPosition">
+    <number>50</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="image_label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>621</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="publicar">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>430</y>
+     <width>86</width>
+     <height>37</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Publicar</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
