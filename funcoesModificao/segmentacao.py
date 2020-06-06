@@ -113,5 +113,5 @@ def segmentar(IMAGE_NAME):
         #---------------------------------------FIM DO WHILE-----------------------------------------------
 
     dst = cv.threshold(img, limiarAtual, max_binary_value, 0)
-    cv.imwrite(IMAGE_NAME ,dst[1]) # Salva a imagem que voce tirou o print
-    return IMAGE_NAME
+    cv.imwrite("edited.jpg" ,dst[1]) # Salva a imagem que voce tirou o print
+    return "edited.jpg"

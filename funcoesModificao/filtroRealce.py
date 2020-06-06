@@ -23,5 +23,5 @@ def realce(IMAGE_NAME):
 
     grad = cv.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)
 
-    cv.imwrite(IMAGE_NAME, grad)
-    return IMAGE_NAME
+    cv.imwrite("edited.jpg", grad)
+    return "edited.jpg"

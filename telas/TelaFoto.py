@@ -59,6 +59,7 @@ class TelaFoto(QtWidgets.QWidget):
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
         cv2.imwrite(final, self.image)
+        cv2.imwrite("fotoTirada.jpg", self.image)
         self.ui.image_label.setPixmap(QtGui.QPixmap(final))
 
         # start/stop timer
