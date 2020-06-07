@@ -1,4 +1,5 @@
 import cv2
+import os
 from PyQt5 import QtGui
 from PyQt5.QtCore import QTimer
 # import some PyQt5 modules
@@ -7,9 +8,6 @@ from PyQt5.QtGui import QPixmap
 
 from forms.TirarFotoForm import Ui_Form
 from PyQt5 import QtCore, QtWidgets
-
-IMAGE_NAME = "edited.jpg"
-
 
 class TelaFoto(QtWidgets.QWidget):
 
@@ -53,14 +51,16 @@ class TelaFoto(QtWidgets.QWidget):
         self.ui.image_label.setPixmap(QPixmap.fromImage(qImg))
 
     def take_photo(self):
-        final = IMAGE_NAME
+        
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(self.image, 'Nice Lucas', (30, 50), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
-        cv2.imwrite(final, self.image)
-        cv2.imwrite("fotoTirada.jpg", self.image)
-        self.ui.image_label.setPixmap(QtGui.QPixmap(final))
+        cv2.imwrite( "../images/edited.jpg", self.image)
+        #cv2.imwrite(final, self.image)
+        cv2.imwrite("../images/fotoTirada.jpg", self.image)
+        #cv2.imwrite("/images/fotoTirada.jpg", self.image)
+        self.ui.image_label.setPixmap(QtGui.QPixmap("../images/fotoTirada.jpg"))
 
         # start/stop timer
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>467</height>
+    <width>645</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>420</y>
+     <y>590</y>
      <width>281</width>
      <height>37</height>
     </rect>
@@ -32,10 +32,10 @@
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>621</width>
-     <height>391</height>
+     <x>0</x>
+     <y>40</y>
+     <width>641</width>
+     <height>541</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -46,8 +46,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>619</width>
-      <height>389</height>
+      <width>622</width>
+      <height>550</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -61,8 +61,8 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>600</width>
-         <height>371</height>
+         <width>604</width>
+         <height>532</height>
         </size>
        </property>
        <property name="text">
@@ -78,6 +78,26 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="sair">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>10</y>
+     <width>95</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Sair</string>
+   </property>
   </widget>
  </widget>
  <resources/>

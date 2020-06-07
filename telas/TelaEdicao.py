@@ -9,8 +9,9 @@ from funcoesModificao.segmentacao import segmentar
 from funcoesModificao.smoothing import smooth
 from funcoesModificao.normal_Image import toNormal
 
-IMAGE_NAME = "edited.jpg"
-IMAGE_TAKED = "fotoTirada.jpg"
+
+IMAGE_NAME = "../images/edited.jpg"
+IMAGE_TAKED = "../images/fotoTirada.jpg"
 
 toUsandoFiltro = True
 
@@ -67,6 +68,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.botaoEditar.clicked.connect(self.filtro8)
 
 
+
     def switch(self):
         self.switch_window.emit()
 
@@ -80,7 +82,7 @@ class TelaEdicao(QtWidgets.QWidget):
         print("Voltando para a tela de tirar a foto")    
 
     def normal(self):
-         self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+         self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
     def realcar(self):
         self.ui.image_label.setPixmap(QtGui.QPixmap(realce(IMAGE_TAKED)))
@@ -95,12 +97,13 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.image_label.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
 
     def filtro6(self):                                                         # Mudar o filtro [ toGray() ] usado para o filtro 6 feito 
-        self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))    
+        self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))    
 
     def filtro7(self):                                                         # Mudar o filtro [ toNormal() ] usado para o filtro 7 feito 
-        self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+        self.ui.image_label.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
 
     def filtro8(self):                                                          # Mudar o filtro [ toGray() ] usado para o filtro 8 feito
-         self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+         self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
    
+    

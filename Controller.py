@@ -8,7 +8,7 @@ from telas.TelaFoto import TelaFoto
 # import Opencv module
 from telas.TelaInicial import TelaInicial
 
-IMAGE_NAME = "edited.jpg"
+IMAGE_NAME = "../edited.jpg"
 
 class Controller:
 

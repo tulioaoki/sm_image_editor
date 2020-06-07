@@ -2,8 +2,6 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore, QtWidgets
 from forms.InicialForm import Ui_Inicial_Form
 
-IMAGE_NAME = "edited.jpg"
-
 
 class TelaInicial(QtWidgets.QWidget):
 
@@ -14,7 +12,6 @@ class TelaInicial(QtWidgets.QWidget):
         super().__init__()
         self.ui = Ui_Inicial_Form()
         self.ui.setupUi(self)
-        self.ui.image.setPixmap(QtGui.QPixmap(IMAGE_NAME))
         self.image = None
         self.ui.buttom.clicked.connect(self.switch)
 
