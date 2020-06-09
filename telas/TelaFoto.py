@@ -52,16 +52,16 @@ class TelaFoto(QtWidgets.QWidget):
 
     def take_photo(self):
         
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        cv2.putText(self.image, 'Nice Lucas', (30, 50), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
+        #font = cv2.FONT_HERSHEY_SIMPLEX
+        #cv2.putText(self.image, 'Nice Lucas', (30, 50), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
-        cv2.imwrite( "../images/edited.jpg", self.image)
+        cv2.imwrite( "./images/edited.jpg", self.image)
         #cv2.imwrite(final, self.image)
-        cv2.imwrite("../images/fotoTirada.jpg", self.image)
+        cv2.imwrite("./images/fotoTirada.jpg", self.image)
         #cv2.imwrite("/images/fotoTirada.jpg", self.image)
-        self.ui.image_label.setPixmap(QtGui.QPixmap("../images/fotoTirada.jpg"))
-
+        self.ui.image_label.setPixmap(QtGui.QPixmap("./images/fotoTirada.jpg"))
+        self.ui.editar.setEnabled(True)
         # start/stop timer
 
     def controlTimer(self):
@@ -72,7 +72,7 @@ class TelaFoto(QtWidgets.QWidget):
             # start timer
             self.timer.start(20)
             # update control_bt text
-            self.ui.control_bt.setText("Tirar foto")
+            self.ui.control_bt.setText("TIRAR FOTO")
         # if timer is started
         else:
             # stop timer
@@ -80,5 +80,5 @@ class TelaFoto(QtWidgets.QWidget):
             # release video capture
             self.cap.release()
             # update control_bt text
-            self.ui.control_bt.setText("Tirar outra")
+            self.ui.control_bt.setText("TIRAR OUTRA FOTO")
             self.take_photo()

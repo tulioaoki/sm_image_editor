@@ -10,5 +10,5 @@ def smooth(IMAGE_NAME):
         else:
             median = cv2.medianBlur(median, 3)
 
-    cv2.imwrite("../images/edited.jpg", median)   # Save the image
-    return "../images/edited.jpg"
+    cv2.imwrite("./images/edited.jpg", median)   # Save the image
+    return "./images/edited.jpg"

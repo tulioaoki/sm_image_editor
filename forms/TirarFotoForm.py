@@ -18,7 +18,7 @@ class Ui_Form(object):
         self.control_bt.setGeometry(QtCore.QRect(50, 580, 201, 41))
         self.control_bt.setObjectName("control_bt")
         self.editar = QtWidgets.QPushButton(Form)
-        self.editar.setEnabled(True)
+        self.editar.setEnabled(False)
         self.editar.setGeometry(QtCore.QRect(390, 580, 211, 41))
         self.editar.setObjectName("editar")
         self.image_label = QtWidgets.QLabel(Form)
@@ -33,5 +33,3 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Cam view"))
         self.control_bt.setText(_translate("Form", "TIRAR FOTO"))
         self.editar.setText(_translate("Form", "EDITAR"))
-        self.image_label.setText(_translate("Form", "TextLabel"))
-

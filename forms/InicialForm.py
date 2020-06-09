@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-IMAGE_NAME = "../images/edited.jpg"
+IMAGE_NAME = "./images/edited.jpg"
 
 
 class Ui_Inicial_Form (object):
@@ -49,7 +49,7 @@ class Ui_Inicial_Form (object):
                 self.image.setText("")
                 self.image.setPixmap(QtGui.QPixmap(IMAGE_NAME))
                 self.image.setScaledContents(True)
-                self.image.setObjectName("image")
+                self.image.setObjectName("image"+"{}".format(i))
                 self.verticalLayout.addWidget(self.image)
 
             else:
@@ -81,6 +81,6 @@ class Ui_Inicial_Form (object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Cam view"))
+        Form.setWindowTitle(_translate("Form", "Fotos Publicadas"))
         self.buttom.setText(_translate("Form", "TIRAR FOTO"))
         self.sair.setText(_translate("Form", "Sair"))

@@ -14,6 +14,9 @@
    <string>Cam view</string>
   </property>
   <widget class="QSlider" name="slider">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -458,10 +461,11 @@
    <property name="font">
     <font>
      <pointsize>12</pointsize>
-     <weight>50</weight>
+     <weight>75</weight>
      <italic>false</italic>
-     <bold>false</bold>
+     <bold>true</bold>
      <underline>true</underline>
+     <kerning>true</kerning>
     </font>
    </property>
    <property name="mouseTracking">
@@ -488,7 +492,11 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+     <underline>false</underline>
     </font>
    </property>
    <property name="cursor">
