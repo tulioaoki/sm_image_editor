@@ -19,23 +19,42 @@ class Controller:
 
     def show_inicial(self):
         self.inicial = TelaInicial()
-        self.inicial.switch_window.connect(self.show_tirar_foto)
-        if self.edicao and self.edicao.isEnabled():
+       
+        if (self.edicao != None and self.edicao.isVisible() ):
             self.edicao.close()
+
+        if(self.tirar_foto != None and self.tirar_foto.isVisible() ):
+            self.tirar_foto.close()
+
+        self.inicial.switch_window.connect(self.show_tirar_foto)
+        self.inicial.sair.connect(self.exit)
         self.inicial.show()
 
     def show_tirar_foto(self):
+
         self.tirar_foto = TelaFoto()
+        
+        if(self.inicial.isVisible() ):
+            self.inicial.close()
+        
+        if( self.edicao != None and self.edicao.isVisible() ):
+            self.edicao.close()
+
         self.tirar_foto.switch_window.connect(self.show_edicao)
-        self.inicial.close()
+        self.tirar_foto.voltar.connect(self.show_inicial)
         self.tirar_foto.show()
 
     def show_edicao(self):
         self.edicao = TelaEdicao()
-        self.edicao.switch_window.connect(self.show_inicial)
+        self.edicao.voltando.connect(self.show_tirar_foto)
+        self.edicao.inicialScreen.connect(self.show_inicial)
         self.tirar_foto.close()
         self.edicao.show()
 
+    def exit(self):
+        if (self.inicial != None and self.inicial.isVisible() ):
+            self.inicial.close()
+            sys.exit()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

@@ -22,8 +22,12 @@ class Ui_Form(object):
         self.editar.setGeometry(QtCore.QRect(390, 580, 211, 41))
         self.editar.setObjectName("editar")
         self.image_label = QtWidgets.QLabel(Form)
-        self.image_label.setGeometry(QtCore.QRect(0, 0, 651, 551))
+        self.image_label.setGeometry(QtCore.QRect(0, 50, 651, 511))
+        self.image_label.setText("")
         self.image_label.setObjectName("image_label")
+        self.voltar = QtWidgets.QPushButton(Form)
+        self.voltar.setGeometry(QtCore.QRect(10, 10, 86, 37))
+        self.voltar.setObjectName("voltar")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -33,3 +37,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Cam view"))
         self.control_bt.setText(_translate("Form", "TIRAR FOTO"))
         self.editar.setText(_translate("Form", "EDITAR"))
+        self.voltar.setText(_translate("Form", "VOLTAR"))

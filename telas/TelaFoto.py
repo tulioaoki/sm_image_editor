@@ -13,6 +13,8 @@ class TelaFoto(QtWidgets.QWidget):
 
     switch_window = QtCore.pyqtSignal()
 
+    voltar = QtCore.pyqtSignal()
+
     def __init__(self):
         super().__init__()
         self.image = None
@@ -32,6 +34,14 @@ class TelaFoto(QtWidgets.QWidget):
         self.controlTimer()
         self.ui.control_bt.clicked.connect(self.controlTimer)
         self.ui.editar.clicked.connect(self.editar)
+
+        self.ui.voltar.clicked.connect(self.telaInicial)
+
+    def telaInicial(self):
+        self.timer.stop()
+        # release video capture
+        self.cap.release()
+        self.voltar.emit()
 
     def editar(self):
         self.switch_window.emit()
@@ -54,13 +64,12 @@ class TelaFoto(QtWidgets.QWidget):
         
         #font = cv2.FONT_HERSHEY_SIMPLEX
         #cv2.putText(self.image, 'Nice Lucas', (30, 50), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
-        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
-        cv2.imwrite( "./images/edited.jpg", self.image)
-        #cv2.imwrite(final, self.image)
-        cv2.imwrite("./images/fotoTirada.jpg", self.image)
-        #cv2.imwrite("/images/fotoTirada.jpg", self.image)
-        self.ui.image_label.setPixmap(QtGui.QPixmap("./images/fotoTirada.jpg"))
+        
+        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        cv2.imwrite( "./images/PhotoInEdition/edited.jpg", self.image)
+        cv2.imwrite("./images/PhotoInEdition/fotoTirada.jpg", self.image)
+        self.ui.image_label.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/fotoTirada.jpg"))
         self.ui.editar.setEnabled(True)
         # start/stop timer
 

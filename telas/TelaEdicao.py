@@ -1,3 +1,7 @@
+import os, os.path
+import cv2
+
+
 from PyQt5 import QtGui
 
 from forms.EdicaoFotoForm import Ui_Edicao_Foto_Form
@@ -10,14 +14,18 @@ from funcoesModificao.smoothing import smooth
 from funcoesModificao.normal_Image import toNormal
 
 
-IMAGE_NAME = "./images/edited.jpg"
-IMAGE_TAKED = "./images/fotoTirada.jpg"
+IMAGE_NAME = "./images/PhotoInEdition/edited.jpg"
+IMAGE_TAKED = "./images/PhotoInEdition/fotoTirada.jpg"
 
 
 
 class TelaEdicao(QtWidgets.QWidget):
 
-    switch_window = QtCore.pyqtSignal()
+    
+    voltando = QtCore.pyqtSignal()
+
+    inicialScreen = QtCore.pyqtSignal()
+
     toUsandoFiltro = True
 
     def __init__(self):
@@ -51,8 +59,8 @@ class TelaEdicao(QtWidgets.QWidget):
         
         #----- Pages Buttons Actons on Clicked -------------------------------------
 
-        self.ui.publicar.clicked.connect(self.switch_window)
-        self.ui.tirarFoto.clicked.connect(self.telaTirarFoto)
+        self.ui.publicar.clicked.connect(self.telaInicial)
+        self.ui.tirarFoto.clicked.connect(self.voltar)
         
         # ----Filters Buttons Actions on Clicked -----------------------
         
@@ -67,13 +75,25 @@ class TelaEdicao(QtWidgets.QWidget):
 
         # --- Buttons ( Filtros & Editar) Actions on Clicked -------------
 
-        self.ui.botaoFiltro.clicked.connect(self.UsandoFiltro)
-        self.ui.botaoEditar.clicked.connect(self.UsandoEdicao)
+        self.ui.botaoFiltro.clicked.connect(self.usandoFiltro)
+        self.ui.botaoEditar.clicked.connect(self.usandoEdicao)
 
+    # Funções Para mudar de Tela
 
+    def telaInicial(self):
+        
+        img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
+        length = len([name for name in os.listdir(img_dir) ]) 
+        img = cv2.imread("./images/PhotoInEdition/edited.jpg",0)
+        img_dir = "./images/PublishedPhoto/image"
+        final = img_dir + "{}".format(length) + "{}".format(".jpg")
+        
+        cv2.imwrite(final, img)
+        self.inicialScreen.emit()
 
-    def switch(self):
-        self.switch_window.emit()
+    def voltar(self):
+        
+        self.voltando.emit()
 
     #------------ Funções para mudar o nome de cada botao dentro do Scroll Area de acordo com sua função ( usar filtro (Botao Filter),  ou editar (Botao editar) )
      
@@ -81,7 +101,7 @@ class TelaEdicao(QtWidgets.QWidget):
     # ----------- Funções que são chamadas quando um botao especifico é clickado --------     
 
 
-    def UsandoFiltro(self):
+    def usandoFiltro(self):
         
         
         # ----------------------------------- Sentando a Fonte do botao filtro
@@ -138,7 +158,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro7.setText(_translate("Form", "Filtro7"))
         self.ui.filtro8.setText(_translate("Form", "Filtro 8"))
         
-    def UsandoEdicao(self):
+    def usandoEdicao(self):
         
         # ----------------------------------- Sentando a Fonte do botao editar
         font = QtGui.QFont()
@@ -192,9 +212,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro7.setText(_translate("Form", "Nitidez"))
         self.ui.filtro8.setText(_translate("Form", "Vinheta"))
         
-    def telaTirarFoto(self):
-        print("Voltando para a tela de tirar a foto")    
-
+ 
     def normal(self):
 
         print("toUsandoFiltro = " + "{}".format(self.toUsandoFiltro))

@@ -31,6 +31,7 @@ class Ui_Edicao_Foto_Form(object):
         font.setPointSize(10)
         self.publicar.setFont(font)
         self.publicar.setObjectName("publicar")
+
         self.scrollArea = QtWidgets.QScrollArea(Form)
         self.scrollArea.setGeometry(QtCore.QRect(-10, 370, 661, 161))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -125,6 +126,7 @@ class Ui_Edicao_Foto_Form(object):
         self.blur.setMinimumSize(QtCore.QSize(135, 30))
         self.blur.setObjectName("blur")
         self.gridLayout.addWidget(self.blur, 0, 4, 1, 1)
+
         self.contraste = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -133,6 +135,8 @@ class Ui_Edicao_Foto_Form(object):
         self.contraste.setSizePolicy(sizePolicy)
         self.contraste.setMinimumSize(QtCore.QSize(135, 30))
         self.contraste.setObjectName("contraste")
+
+
         self.gridLayout.addWidget(self.contraste, 0, 5, 1, 1)
         self.imagemContraste = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -238,6 +242,8 @@ class Ui_Edicao_Foto_Form(object):
         self.botaoEditar.setFont(font)
         self.botaoEditar.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.botaoEditar.setObjectName("botaoEditar")
+        
+        
         self.tirarFoto = QtWidgets.QPushButton(Form)
         self.tirarFoto.setGeometry(QtCore.QRect(10, 10, 86, 37))
         self.tirarFoto.setMinimumSize(QtCore.QSize(86, 37))
@@ -252,7 +258,7 @@ class Ui_Edicao_Foto_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Cam view"))
-        self.publicar.setText(_translate("Form", "Publicar"))
+        self.publicar.setText(_translate("Form", "PUBLICAR"))
         self.filtro7.setText(_translate("Form", "Filtro7"))
         self.normal.setText(_translate("Form", "Normal"))
         self.filtro6.setText(_translate("Form", "Filtro6"))
@@ -263,14 +269,5 @@ class Ui_Edicao_Foto_Form(object):
         self.filtro8.setText(_translate("Form", "Filtro 8"))
         self.botaoFiltro.setText(_translate("Form", "Filtro"))
         self.botaoEditar.setText(_translate("Form", "Editar"))
-        self.tirarFoto.setText(_translate("Form", "Voltar"))
+        self.tirarFoto.setText(_translate("Form", "VOLTAR"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

@@ -6,22 +6,19 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import os, os.path
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-IMAGE_NAME = "./images/edited.jpg"
-
-
-class Ui_Inicial_Form (object):
+class Ui_Inicial_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(645, 649)
         self.buttom = QtWidgets.QPushButton(Form)
         self.buttom.setEnabled(True)
-        self.buttom.setGeometry(QtCore.QRect(180, 590, 281, 37))
+        self.buttom.setGeometry(QtCore.QRect(180, 600, 281, 37))
         self.buttom.setObjectName("buttom")
-
         self.scrollArea = QtWidgets.QScrollArea(Form)
         self.scrollArea.setGeometry(QtCore.QRect(0, 40, 641, 541))
         self.scrollArea.setWidgetResizable(True)
@@ -29,12 +26,18 @@ class Ui_Inicial_Form (object):
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 622, 550))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-
-        self.verticalLayout = QtWidgets.QVBoxLayout( self.scrollAreaWidgetContents)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
+        
+        img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
+        i = 0
 
-        for i in range(4):  # For que irá percorrer a lista de fotos editadas
-
+        length = len([name for name in os.listdir(img_dir) ]) 
+        print("ESTOU NA TELA INICIAL")
+        print("Quantidade de fotos publicadas = " + "{}".format(length) ) 
+        
+        for fl in os.listdir(img_dir):
+          
             if(i == 0):
                 self.image = QtWidgets.QLabel(self.scrollAreaWidgetContents)
                 sizePolicy = QtWidgets.QSizePolicy(
@@ -47,7 +50,7 @@ class Ui_Inicial_Form (object):
                 self.image.setSizePolicy(sizePolicy)
                 self.image.setMinimumSize(QtCore.QSize(604, 532))
                 self.image.setText("")
-                self.image.setPixmap(QtGui.QPixmap(IMAGE_NAME))
+                self.image.setPixmap(QtGui.QPixmap(img_dir + "{}".format(fl)))
                 self.image.setScaledContents(True)
                 self.image.setObjectName("image"+"{}".format(i))
                 self.verticalLayout.addWidget(self.image)
@@ -61,14 +64,15 @@ class Ui_Inicial_Form (object):
                 sizePolicy.setHeightForWidth( label.sizePolicy().hasHeightForWidth())
                 label.setSizePolicy(sizePolicy)
                 label.setMinimumSize(QtCore.QSize(604, 532))
-                label.setPixmap(QtGui.QPixmap(IMAGE_NAME))
+                label.setPixmap(QtGui.QPixmap(img_dir + "{}".format(fl)))
                 label.setScaledContents(True)
                 self.verticalLayout.addWidget(label)
-
+            
+            i = i + 1
+        
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.sair = QtWidgets.QPushButton(Form)
-        self.sair.setGeometry(QtCore.QRect(520, 10, 95, 24))
-
+        self.sair.setGeometry(QtCore.QRect(540, 10, 95, 24))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
@@ -81,6 +85,7 @@ class Ui_Inicial_Form (object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Fotos Publicadas"))
+        Form.setWindowTitle(_translate("Form", "Fotos publicadas"))
         self.buttom.setText(_translate("Form", "TIRAR FOTO"))
-        self.sair.setText(_translate("Form", "Sair"))
+        self.sair.setText(_translate("Form", "SAIR"))
+
