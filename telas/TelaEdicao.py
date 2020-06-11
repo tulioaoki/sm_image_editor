@@ -6,12 +6,18 @@ from PyQt5 import QtGui
 
 from forms.EdicaoFotoForm import Ui_Edicao_Foto_Form
 from PyQt5 import QtCore, QtWidgets
+from scipy.interpolate import UnivariateSpline
+
 
 from funcoesModificao.cinzaImage import toGray
 from funcoesModificao.filtroRealce import realce
 from funcoesModificao.segmentacao import segmentar
 from funcoesModificao.smoothing import smooth
 from funcoesModificao.normal_Image import toNormal
+from funcoesModificao.smoothingCopy import smoothTeste
+from funcoesModificao.brilho import brilho
+from funcoesModificao.rotacao import rotacionar
+from funcoesModificao.temperatura import converte_temp
 
 
 IMAGE_NAME = "./images/PhotoInEdition/edited.jpg"
@@ -211,6 +217,9 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro6.setText(_translate("Form", "Sombras"))
         self.ui.filtro7.setText(_translate("Form", "Nitidez"))
         self.ui.filtro8.setText(_translate("Form", "Vinheta"))
+
+        # -------------------------------------- Mudando o valor do slider ------------
+        self.ui.slider.valueChanged.connect(self.sliderChange)
         
  
     def normal(self):
@@ -220,7 +229,9 @@ class TelaEdicao(QtWidgets.QWidget):
         if(self.toUsandoFiltro):
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
         else:
+            self.atributo = 1    # variavel atributo escolhido para armazenar botao selecionado
             print("Usando edição Brilho")
+            self.ui.slider.setValue(0)
 
     def realcar(self):
         if(self.toUsandoFiltro):
@@ -233,13 +244,16 @@ class TelaEdicao(QtWidgets.QWidget):
         if(self.toUsandoFiltro):
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
         else:
-            print("Usando edição Rotação")        
+            self.atributo = 3    # variavel atributo escolhido para armazenar botao selecionado
+            print("Usando edição Rotação")    
+            self.ui.slider.setValue(128)    
 
     def smooth(self):
 
         if(self.toUsandoFiltro):
             self.ui.image_label.setPixmap(QtGui.QPixmap(smooth(IMAGE_TAKED)))
         else:
+            self.atributo = 4    # variavel atributo escolhido para armazenar botao selecionado
             print("Usando edição Temperatura")  
         
 
@@ -248,6 +262,7 @@ class TelaEdicao(QtWidgets.QWidget):
         if(self.toUsandoFiltro):
             self.ui.image_label.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
         else:
+            self.atributo = 2    # variavel atributo escolhido para armazenar botao selecionado
             print("Usando edição Saturação")  
 
     def filtro6(self):                                                         # Mudar o filtro [ toGray() ] usado para o filtro 6 feito 
@@ -271,5 +286,15 @@ class TelaEdicao(QtWidgets.QWidget):
         else:
             print("Usando edição Vinheta")
 
-   
+    def sliderChange(self):
+        if(self.atributo == 1):
+            self.ui.image_label.setPixmap(QtGui.QPixmap(brilho(IMAGE_TAKED, self.ui.slider.value())))
+        elif(self.atributo == 2):
+                self.ui.image_label.setPixmap(QtGui.QPixmap(smoothTeste(IMAGE_TAKED, self.ui.slider.value())))
+        elif(self.atributo == 3):
+                self.ui.image_label.setPixmap(QtGui.QPixmap(rotacionar(IMAGE_TAKED, self.ui.slider.value())))
+        elif(self.atributo == 4):
+                self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self)))
+
+
     
