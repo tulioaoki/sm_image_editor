@@ -57,7 +57,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.ui.imagemBlur.setPixmap(QtGui.QPixmap(smooth(IMAGE_TAKED)))
 
-        self.ui.imgaemSegmentada.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+        self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         self.ui.imagemContraste.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED))) # funcao de realçar
 
@@ -148,10 +148,10 @@ class TelaEdicao(QtWidgets.QWidget):
         if(self.do_i_edited_an_image == True):
                 
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemCinza.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemCinza.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
+            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
+            self.ui.imagemBlur.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
+            self.ui.imagemContraste.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
             self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 6
             self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 7
             self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 8
@@ -159,9 +159,9 @@ class TelaEdicao(QtWidgets.QWidget):
         else:
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
             self.ui.imagemCinza.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(IMAGE_TAKED)))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap(IMAGE_TAKED)))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap(IMAGE_TAKED)))
+            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
+            self.ui.imagemBlur.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
+            self.ui.imagemContraste.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
             self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
             self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 7
             self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 8
@@ -282,7 +282,7 @@ class TelaEdicao(QtWidgets.QWidget):
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.segmentar..setFont(font)            
+            self.ui.segmentar.setFont(font)            
             self.ui.cinzar.setFont(font)
             self.ui.blur.setFont(font)
             self.ui.contraste.setFont(font)
@@ -321,7 +321,7 @@ class TelaEdicao(QtWidgets.QWidget):
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.segmentar..setFont(font)            
+            self.ui.segmentar.setFont(font)            
             self.ui.normal.setFont(font)
             self.ui.blur.setFont(font)
             self.ui.contraste.setFont(font)
