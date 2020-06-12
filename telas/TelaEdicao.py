@@ -9,11 +9,12 @@ from PyQt5 import QtCore, QtWidgets
 
 
 
-from funcoesModificao.cinzaImage import toGray
+from Filters.cinzaImage import toGray
 from funcoesModificao.filtroRealce import realce
-from funcoesModificao.segmentacao import segmentar
+from Filters.segmentacao import segmentar
 from funcoesModificao.smoothing import smooth
-from funcoesModificao.normal_Image import toNormal
+from Filters.normal_Image import toNormal
+from Filters.emboss import toEmboss
 from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
@@ -67,6 +68,8 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))  # Fazer filtro 8
 
+        self.ui.filtro9_imagem.setPixmap(QtGui.QPixmap(toEmboss(IMAGE_TAKED)))  # emboss
+
                    
         
         #----- Pages Buttons Actons on Clicked -------------------------------------
@@ -84,6 +87,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro6.clicked.connect(self.filtro6)
         self.ui.filtro7.clicked.connect(self.filtro7)
         self.ui.filtro8.clicked.connect(self.filtro8)
+        self.ui.filtro9.clicked.connect(self.filtro9)
 
         # --- Buttons ( Filtros & Editar) Actions on Clicked -------------
 
@@ -155,6 +159,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 6
             self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 7
             self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 8
+            self.ui.filtro9_imagem.setPixmap(QtGui.QPixmap(toEmboss("./images/PhotoInEdition/edited.jpg"))) # emboss
 
         else:
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
@@ -165,6 +170,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
             self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 7
             self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 8
+            self.ui.filtro9_imagem.setPixmap(QtGui.QPixmap(toEmboss(IMAGE_TAKED))) # emboss
         
         
          
@@ -187,6 +193,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro6.setText(_translate("Form", "Filtro6"))
         self.ui.filtro7.setText(_translate("Form", "Filtro7"))
         self.ui.filtro8.setText(_translate("Form", "Filtro 8"))
+        self.ui.filtro9.setText(_translate("Form", "Emboss"))
         
     def usandoEdicao(self):
         
@@ -232,6 +239,8 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezicon.png"))  # Fazer filtro 8
 
+        self.ui.filtro9_imagem.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezicon.png"))  # Emboss
+
         # ------------------------------------ Tornando o Slider Visivel e disponivel
 
         self.ui.slider.setVisible(True)
@@ -250,6 +259,7 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro6.setText(_translate("Form", "Sombras"))
         self.ui.filtro7.setText(_translate("Form", "Nitidez"))
         self.ui.filtro8.setText(_translate("Form", "Vinheta"))
+        self.ui.filtro9.setText(_translate("Form", "Emboss"))
 
         # -------------------------------------- Mudando o valor do slider ------------
         
@@ -289,6 +299,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
 
             
             self.queFuncaoEdicao = 0    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -328,6 +339,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
 
             self.queFuncaoEdicao = 1    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.ui.slider.setValue(self.sliderValues[1])  
@@ -366,6 +378,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
     
 
             self.queFuncaoEdicao = 2    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -405,6 +418,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
     
 
             self.queFuncaoEdicao = 3    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -443,6 +457,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro6.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
     
 
             self.queFuncaoEdicao = 4    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -483,6 +498,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.contraste.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
 
             self.queFuncaoEdicao = 5    #                            variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.ui.slider.setValue(self.sliderValues[5])
@@ -522,6 +538,7 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.contraste.setFont(font)
             self.ui.filtro6.setFont(font)            
             self.ui.filtro8.setFont(font)
+            self.ui.filtro9.setFont(font)
 
             self.queFuncaoEdicao = 6    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.ui.slider.setValue(self.sliderValues[6])
@@ -561,11 +578,50 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.contraste.setFont(font)
             self.ui.filtro7.setFont(font)            
             self.ui.filtro6.setFont(font)
+            self.ui.filtro9.setFont(font)
 
             self.queFuncaoEdicao = 7    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.ui.slider.setValue(self.sliderValues[7])
             print("Usando edição Vinheta")
 
+    def filtro9(self):                                                          # Mudar o filtro [ toGray() ] usado para o filtro 8 feito
+            
+            if(self.toUsandoFiltro):
+                
+                if(self.do_i_edited_an_image == True):
+                    
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(toEmboss("./images/PhotoInEdition/edited.jpg")))
+                
+                else:
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(toEmboss(IMAGE_TAKED)))
+
+            else:
+
+                font = QtGui.QFont()
+                font.setPointSize(8)
+                font.setBold(True)
+                font.setItalic(False)
+                font.setUnderline(True)
+                font.setWeight(75)
+                self.ui.filtro8.setFont(font)
+
+                font.setBold(False)
+                font.setItalic(False)
+                font.setUnderline(False)
+                font.setWeight(50)
+                
+                self.ui.cinzar.setFont(font)            
+                self.ui.normal.setFont(font)
+                self.ui.blur.setFont(font)
+                self.ui.segmentar.setFont(font)
+                self.ui.contraste.setFont(font)
+                self.ui.filtro7.setFont(font)            
+                self.ui.filtro6.setFont(font)
+                self.ui.filtro9.setFont(font)
+
+                self.queFuncaoEdicao = 8    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
+                self.ui.slider.setValue(self.sliderValues[8])
+                print("Usando edição Emboss")
 
     def sliderChange(self):
         
