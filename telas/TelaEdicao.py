@@ -9,11 +9,11 @@ from PyQt5 import QtCore, QtWidgets
 from scipy.interpolate import UnivariateSpline
 
 
-from funcoesModificao.cinzaImage import toGray
+from Filters.cinzaImage import toGray
 from funcoesModificao.filtroRealce import realce
-from funcoesModificao.segmentacao import segmentar
+from Filters.segmentacao import segmentar
 from funcoesModificao.smoothing import smooth
-from funcoesModificao.normal_Image import toNormal
+from Filters.normal_Image import toNormal
 from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
