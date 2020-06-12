@@ -67,7 +67,7 @@ class TelaFoto(QtWidgets.QWidget):
         # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
         
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-        cv2.imwrite( "./images/PhotoInEdition/edited.jpg", self.image)
+        cv2.imwrite( "./images/PhotoInEdition/filtered.jpg", self.image)
         cv2.imwrite("./images/PhotoInEdition/fotoTirada.jpg", self.image)
         self.ui.image_label.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/fotoTirada.jpg"))
         self.ui.editar.setEnabled(True)

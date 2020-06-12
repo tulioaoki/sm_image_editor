@@ -31,9 +31,7 @@ def segmentar(IMAGE_NAME):
     height = img.shape[0]  # Numero de linha da matriz
     width = img.shape[1]   # Numero de colunas da matriz
 
-    qtdPixelImage = height * width # Numero total de pixels que a imagem possui
-
-
+    
     qtdMenorT = 0          # Armazena quantos pixels estão abaixo do limiar
     qtdMaiorT = 0          # Armazena quantos pixels estão a cima do limiar
     
@@ -113,5 +111,5 @@ def segmentar(IMAGE_NAME):
         #---------------------------------------FIM DO WHILE-----------------------------------------------
 
     dst = cv.threshold(img, limiarAtual, max_binary_value, 0)
-    cv.imwrite("./images/PhotoInEdition/edited.jpg" ,dst[1]) # Salva a imagem que voce tirou o print
-    return "./images/PhotoInEdition/edited.jpg"
+    cv.imwrite("./images/PhotoInEdition/" ,dst[1]) # Salva a imagem que voce tirou o print
+    return "./images/PhotoInEdition/filtered.jpg"
