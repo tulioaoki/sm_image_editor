@@ -1,10 +1,44 @@
-import cv2
+from scipy.interpolate import UnivariateSpline
+import cv2 
 import numpy as np
 
-def converte_temp(IMAGE_NAME, self):
-    img_rgb = cv2.imread(IMAGE_NAME)
-    c_r, c_g, c_b = cv2.split(img_rgb)
-    c_r = cv2.LUT(c_r, self.incr_ch_lut).astype(np.uint8)
-    c_b = cv2.LUT(c_b, self.decr_ch_lut).astype(np.uint8)
-    img_rgb = cv2.merge((c_r, c_g, c_b))
-    return img_rgb
+def converte_temp(IMAGE_NAME, sliderValue):
+
+
+    def spreadLookupTable(x, y):
+        
+        spline = UnivariateSpline(x, y)
+        
+        return spline(range(256))
+
+
+    def warmImage(image):
+        increaseLookupTable = spreadLookupTable([0, 64, 128, 256], [0, 80, 160, 256])
+        decreaseLookupTable = spreadLookupTable([0, 64, 128, 256], [0, 50, 100, 256])
+
+        red_channel , green_channel, blue_channel = cv2.split(image)
+
+        red_channel = cv2.LUT(red_channel, increaseLookupTable).astype(np.uint8)
+        blue_channel = cv2.LUT(blue_channel, decreaseLookupTable).astype(np.uint8)
+        return cv2.merge((red_channel, green_channel, blue_channel))
+
+    def coldImage(image):
+        increaseLookupTable = spreadLookupTable([0, 64, 128, 256], [0, 80, 160, 256])
+        decreaseLookupTable = spreadLookupTable([0, 64, 128, 256], [0, 50, 100, 256])
+        red_channel, green_channel, blue_channel = cv2.split(image)
+        red_channel = cv2.LUT(red_channel, decreaseLookupTable).astype(np.uint8)
+        blue_channel = cv2.LUT(blue_channel, increaseLookupTable).astype(np.uint8)
+        return cv2.merge((red_channel, green_channel, blue_channel))
+
+
+
+
+
+    img  = coldImage(img)
+    cv2.imshow("Warm", img)
+
+    k = cv2.waitKey(0)     #  Receberá o valor do keyboard (esc == 27)
+    if (k == 27):  
+        cv2.destroyAllWindows() # Fecha a janela
+        
+

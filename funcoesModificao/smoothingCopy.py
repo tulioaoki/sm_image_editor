@@ -1,7 +1,7 @@
 import cv2
 
 
-def smoothTeste(IMAGE_NAME, value):
+def smoothTeste(IMAGE_NAME, value,imgNumber):
     if(value%2 == 0): # O valor so pode ser impar
         value += 1
 
@@ -14,5 +14,8 @@ def smoothTeste(IMAGE_NAME, value):
         else:
             median = cv2.medianBlur(median, value)
                      #cv2.GaussianBlur(noiseImage, (value, value), 0) eh mais suave
-    cv2.imwrite("./images/PhotoInEdition/edited.jpg", median)   # Save the image
-    return "./images/PhotoInEdition/edited.jpg"
+    
+    imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+    
+    cv2.imwrite(imagem, median)   # Save the image
+    return imagem
