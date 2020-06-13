@@ -15,7 +15,7 @@ from funcoesModificao.normal_Image import toNormal
 from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
-from funcoesModificao.temperatura import converte_temp
+from funcoesModificao.warmth import warmth
 
 import array
 
@@ -161,6 +161,7 @@ class TelaEdicao(QtWidgets.QWidget):
         if(self.do_i_edited_an_image == True):
                 
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             self.ui.imagemCinza.setPixmap(QtGui.QPixmap( toGray("./images/PhotoInEdition/edited.jpg")))
             self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
             self.ui.imagemBlur.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
@@ -171,6 +172,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
         else:
             self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+            self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
             self.ui.imagemCinza.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
             self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
             self.ui.imagemBlur.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
@@ -179,9 +181,6 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 7
             self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 8
         
-        
-         
-
         # ------------------------------------ Tornando o Slider Invisivel e indisponivel
 
         self.ui.slider.setVisible(False)
@@ -201,6 +200,21 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.filtro7.setText(_translate("Form", "Filtro7"))
         self.ui.filtro8.setText(_translate("Form", "Filtro 8"))
         
+        #--------------------------------------- Seta a fonte dos botoes da cada filtro
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.ui.normal.setFont(font)
+        self.ui.segmentar.setFont(font)            
+        self.ui.cinzar.setFont(font)
+        self.ui.blur.setFont(font)
+        self.ui.contraste.setFont(font)
+        self.ui.filtro6.setFont(font)
+        self.ui.filtro7.setFont(font)            
+        self.ui.filtro8.setFont(font)
+     
     def usandoEdicao(self):
         
         # ----------------------------------- Sentando a Fonte do botao editar
@@ -265,7 +279,6 @@ class TelaEdicao(QtWidgets.QWidget):
 
         # -------------------------------------- Mudando o valor do slider ------------
         self.primeiraIteracao = 0
-        
          
     def normal(self):
 
@@ -396,8 +409,7 @@ class TelaEdicao(QtWidgets.QWidget):
             valor = self.sliderValues[2]
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
-            
-            
+                       
     def smooth(self):
 
         if(self.toUsandoFiltro):
@@ -564,12 +576,11 @@ class TelaEdicao(QtWidgets.QWidget):
             self.queFuncaoEdicao = 6    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
             valor = self.sliderValues[6]
-           self.ui.slider.setEnabled(False) 
+            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[6]
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
-            
         
     def filtro8(self):                                                          # Mudar o filtro [ toGray() ] usado para o filtro 8 feito
         
@@ -677,10 +688,10 @@ class TelaEdicao(QtWidgets.QWidget):
                 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[3] = self.ui.slider.value()    
 
@@ -688,10 +699,10 @@ class TelaEdicao(QtWidgets.QWidget):
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[4] = self.ui.slider.value()    
             
@@ -699,10 +710,10 @@ class TelaEdicao(QtWidgets.QWidget):
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[5] = self.ui.slider.value()    
 
@@ -710,10 +721,10 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[6] = self.ui.slider.value()
 
@@ -721,10 +732,10 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(converte_temp(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[7] = self.ui.slider.value()
 
