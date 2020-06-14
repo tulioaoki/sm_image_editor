@@ -8,21 +8,14 @@ from forms.EdicaoFotoForm import Ui_Edicao_Foto_Form
 from PyQt5 import QtCore, QtWidgets
 
 from funcoesModificao.cinzaImage import toGray
-from funcoesModificao.filtroRealce import realce
-from funcoesModificao.segmentacao import segmentar
-from funcoesModificao.smoothing import smooth
 from funcoesModificao.normal_Image import toNormal
-from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
 from funcoesModificao.warmth import warmth
-<<<<<<< HEAD
 from funcoesModificao.saturation import saturaration
-=======
 from funcoesModificao.contraste import contraste
 from funcoesModificao.luminancia import luminancia
 from funcoesModificao.vinheta import vinheta
->>>>>>> e817582e128e1b5a055e94b46c8f30146c341df7
 
 
 
@@ -54,55 +47,53 @@ class TelaEdicao(QtWidgets.QWidget):
 
     queFuncaoEdicao = 0
 
-    
-
     do_i_edited_an_image = os.path.exists("./images/PhotoInEdition/edited.jpg")
-    
+    do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
 
     def __init__(self):
         # call QWidget constructor
         super().__init__()
         self.ui = Ui_Edicao_Foto_Form()
         self.ui.setupUi(self)
-        self.ui.image_label.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
+        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
         self.image = None
         self.ui.slider.setValue(self.sliderValues[0])
         #----- Setar a imagens dos Filtros ---------------------------------------
 
   
-        self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+        self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
-        self.ui.imagemCinza.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+        self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
 
-        self.ui.imagemBlur.setPixmap(QtGui.QPixmap(smooth(IMAGE_TAKED)))
+        self.ui.imagemFuncao4.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
-        self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+        self.ui.imagemFuncao3.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
-        self.ui.imagemContraste.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED))) # funcao de realçar
+        self.ui.imagemFuncao5.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED))) # funcao de realçar
 
-        self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
+        self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
 
-        self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))    # Fazer filtro 7
+        self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))    # Fazer filtro 7
 
-        self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))  # Fazer filtro 8
+        self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))  # Fazer filtro 8
 
                    
         
         #----- Pages Buttons Actons on Clicked -------------------------------------
 
         self.ui.publicar.clicked.connect(self.telaInicial)
-        self.ui.tirarFoto.clicked.connect(self.voltar)
+        self.ui.voltar.clicked.connect(self.voltar)
         
         # ----Filters Buttons Actions on Clicked -----------------------
         
-        self.ui.contraste.clicked.connect(self.cinza)
-        self.ui.segmentar.clicked.connect(self.segmentarImage)
-        self.ui.blur.clicked.connect(self.smooth)
-        self.ui.cinzar.clicked.connect(self.cinza)
-        self.ui.normal.clicked.connect(self.normal)
-        self.ui.filtro6.clicked.connect(self.filtro6)
-        self.ui.filtro7.clicked.connect(self.filtro7)
-        self.ui.filtro8.clicked.connect(self.filtro8)
+        self.ui.funcao1.clicked.connect(self.funcao1)
+        self.ui.funcao2.clicked.connect(self.funcao2)
+        self.ui.funcao3.clicked.connect(self.funcao3)
+        self.ui.funcao4.clicked.connect(self.funcao4)
+        self.ui.funcao5.clicked.connect(self.funcao5)
+        self.ui.funcao6.clicked.connect(self.funcao6)
+        self.ui.funcao7.clicked.connect(self.funcao7)
+        self.ui.funcao8.clicked.connect(self.funcao8)
 
         # --- Buttons ( Filtros & Editar) Actions on Clicked -------------
 
@@ -117,33 +108,64 @@ class TelaEdicao(QtWidgets.QWidget):
     # Funções Para mudar de Tela
 
     def telaInicial(self):
+
+        self.do_i_edited_an_image  = os.path.exists("./images/PhotoInEdition/edited.jpg")
+        
+        self.do_i_filtered_an_image  = os.path.exists("./images/PhotoInEdition/filtered.jpg")
+    
         
         img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
         length = len([name for name in os.listdir(img_dir) ])
         img = None
 
         if(self.do_i_edited_an_image == True):
-            img = cv2.imread("./images/PhotoInEdition/edited.jpg",0)
+            img = cv2.imread("./images/PhotoInEdition/edited.jpg")
+        
+        elif(self.do_i_filtered_an_image == True):
+            
+            img = cv2.imread(IMAGE_FILTERED)
+        
         else:
-            img = cv2.imread("./images/PhotoInEdition/filtered.jpg",0)
+            img = cv2.imread(IMAGE_TAKED)
 
         img_dir = "./images/PublishedPhoto/image"
+        
         final = img_dir + "{}".format(length) + "{}".format(".jpg")
         
         cv2.imwrite(final, img)
+        
+        #--------- Limpando as fotos que estão nas pastas
+        
+        pasta1 = "./images/PhotoInEdition/" 
+        pasta2 = "./images/FuncaoDeEdicao/" 
+        
+
+        for image in os.listdir(pasta1):
+            os.remove(image)     
+                
+        for image in os.listdir(pasta2):
+            os.remove(image)     
+
         self.inicialScreen.emit()
 
     def voltar(self):
         
+        #--------- Limpando as fotos que estão nas pastas
+        
+        pasta1 = "./images/PhotoInEdition/" 
+        pasta2 = "./images/FuncaoDeEdicao/" 
+        
+
+        for image in os.listdir(pasta1):
+            os.remove(image)     
+                
+        for image in os.listdir(pasta2):
+            os.remove(image)     
+
         self.voltando.emit()
 
-    #------------ Funções para mudar o nome de cada botao dentro do Scroll Area de acordo com sua função ( usar filtro (Botao Filter),  ou editar (Botao editar) )
-     
-   
-    # ----------- Funções que são chamadas quando um botao especifico é clickado --------     
-
-
     def usandoFiltro(self):
+        
         
         
         # ----------------------------------- Sentando a Fonte do botao filtro
@@ -164,41 +186,51 @@ class TelaEdicao(QtWidgets.QWidget):
 
         # ------------------------------------ Mudando as imagens que ficam em baixo dos botoes
 
+        # ------------------------------------- Apagar Todas as imagens editadas e deixar a versao final na pasta PhotosInEdition
+        
+        img_dir = "./images/FuncaoDeEdicao/" 
+        
+        length = len([name for name in os.listdir(img_dir) ]) 
+        
+        finalimageEdited = "edited" + (length-1) + ".jpg"
+
+        for image in os.listdir(img_dir):
+
+            if(image == finalimageEdited):
+                
+                imagemEditada = img_dir + image
+
+                img = cv2.imread(imagemEditada)
+                cv2.imwrite("./images/PhotoInEdition/edited.jpg",img)
+                
+            os.remove(image)     
+
+        # ------------------- Vê se existe a foto editada pelas funções de edição
+        
+        self.do_i_edited_an_image  = os.path.exists("./images/PhotoInEdition/edited.jpg")
+    
         if(self.do_i_edited_an_image == True):
                 
-            self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
-<<<<<<< HEAD
-            self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemCinza.setPixmap(QtGui.QPixmap( toGray("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
-=======
-            self.ui.imagemCinza.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/edited.jpg"))
->>>>>>> 193afacc091823fa0f9b19ea70e4bf77d97137ff
-            self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 6
-            self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 7
-            self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 8
+            self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap( toGray("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao3.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao4.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao5.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 6
+            self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 7
+            self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg"))) # Fazer filtro 8
 
         else:
-            self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
-            self.ui.imagemNormal.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
-            self.ui.imagemCinza.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
-<<<<<<< HEAD
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
-=======
-            self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
-            self.ui.imagemBlur.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
-            self.ui.imagemContraste.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
->>>>>>> 193afacc091823fa0f9b19ea70e4bf77d97137ff
-            self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
-            self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 7
-            self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 8
+            self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+            self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+            self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+            self.ui.imagemFuncao3.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+            self.ui.imagemFuncao4.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+            self.ui.imagemFuncao5.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+            self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 6
+            self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 7
+            self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED))) # Fazer filtro 8
         
         # ------------------------------------ Tornando o Slider Invisivel e indisponivel
 
@@ -210,14 +242,14 @@ class TelaEdicao(QtWidgets.QWidget):
 
         # -------------------------------------- Mudando o nome dos botões ------------
         _translate = QtCore.QCoreApplication.translate        
-        self.ui.normal.setText(_translate("Form", "Normal"))
-        self.ui.segmentar.setText(_translate("Form", "Segmentar"))
-        self.ui.cinzar.setText(_translate("Form", "Cinza"))
-        self.ui.blur.setText(_translate("Form", "Blur"))
-        self.ui.contraste.setText(_translate("Form", "Contraste"))
-        self.ui.filtro6.setText(_translate("Form", "Filtro6"))
-        self.ui.filtro7.setText(_translate("Form", "Filtro7"))
-        self.ui.filtro8.setText(_translate("Form", "Filtro 8"))
+        self.ui.funcao1.setText(_translate("Form", "Normal"))
+        self.ui.funcao2.setText(_translate("Form", "Cinza"))
+        self.ui.funcao3.setText(_translate("Form", "Função 3"))
+        self.ui.funcao4.setText(_translate("Form", "Função 4"))
+        self.ui.funcao5.setText(_translate("Form", "Função 5"))
+        self.ui.funcao6.setText(_translate("Form", "Função 6"))
+        self.ui.funcao7.setText(_translate("Form", "Função 7"))
+        self.ui.funcao8.setText(_translate("Form", "Função 8"))
         
         #--------------------------------------- Seta a fonte dos botoes da cada filtro
         font = QtGui.QFont()
@@ -225,16 +257,18 @@ class TelaEdicao(QtWidgets.QWidget):
         font.setItalic(False)
         font.setUnderline(False)
         font.setWeight(50)
-        self.ui.normal.setFont(font)
-        self.ui.segmentar.setFont(font)            
-        self.ui.cinzar.setFont(font)
-        self.ui.blur.setFont(font)
-        self.ui.contraste.setFont(font)
-        self.ui.filtro6.setFont(font)
-        self.ui.filtro7.setFont(font)            
-        self.ui.filtro8.setFont(font)
+        self.ui.funcao1.setFont(font)
+        self.ui.funcao3.setFont(font)            
+        self.ui.funcao2.setFont(font)
+        self.ui.funcao4.setFont(font)
+        self.ui.funcao5.setFont(font)
+        self.ui.funcao6.setFont(font)
+        self.ui.funcao7.setFont(font)            
+        self.ui.funcao8.setFont(font)
      
     def usandoEdicao(self):
+
+        self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
         
         # ----------------------------------- Sentando a Fonte do botao editar
         font = QtGui.QFont()
@@ -257,25 +291,25 @@ class TelaEdicao(QtWidgets.QWidget):
         font.setItalic(False)
         font.setUnderline(True)
         font.setWeight(75)
-        self.ui.normal.setFont(font)
+        self.ui.funcao1.setFont(font)
 
         #------------------------------------ Mudando as imagens que ficam em baixo dos botoes
 
-        self.ui.imagemNormal.setPixmap(QtGui.QPixmap("./images/EditedIcons/brilhoIcon.png"))
+        self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap("./images/EditedIcons/brilhoIcon.png"))
 
-        self.ui.imagemCinza.setPixmap(QtGui.QPixmap("./images/EditedIcons/contrasteIcon.png"))
+        self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap("./images/EditedIcons/saturacaoIcon.png"))
 
-        self.ui.imagemSegmentada.setPixmap(QtGui.QPixmap("./images/EditedIcons/rotacaoIcon.png"))
+        self.ui.imagemFuncao3.setPixmap(QtGui.QPixmap("./images/EditedIcons/rotacaoIcon.png"))
 
-        self.ui.imagemBlur.setPixmap(QtGui.QPixmap("./images/EditedIcons/temperaturaIcon.png"))
+        self.ui.imagemFuncao4.setPixmap(QtGui.QPixmap("./images/EditedIcons/temperaturaIcon.png"))
         
-        self.ui.imagemContraste.setPixmap(QtGui.QPixmap("./images/EditedIcons/sombraIcon.png")) # funcao de realçar
+        self.ui.imagemFuncao5.setPixmap(QtGui.QPixmap("./images/EditedIcons/contrasteIcon.png")) # funcao de realçar
 
-        self.ui.filtro6_imagem.setPixmap(QtGui.QPixmap("./images/EditedIcons/saturacaoIcon.png")) # Fazer filtro 6
+        self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap("./images/EditedIcons/sombraIcon.png")) # Fazer filtro 6
 
-        self.ui.filtro7_imagem.setPixmap(QtGui.QPixmap("./images/EditedIcons/realcaoIcon.png"))    # Fazer filtro 7
+        self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezIcon.png"))    # Fazer filtro 7
 
-        self.ui.filtro8_imagem.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezicon.png"))  # Fazer filtro 8
+        self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap("./images/EditedIcons/vinhetaIconIcon.png"))  # Fazer filtro 8
 
         # ------------------------------------ Tornando o Slider Visivel e disponivel
 
@@ -287,53 +321,55 @@ class TelaEdicao(QtWidgets.QWidget):
         
         # -------------------------------------- Mudando o nome dos botões ------------
         _translate = QtCore.QCoreApplication.translate        
-        self.ui.normal.setText(_translate("Form", "Brilho"))
-        self.ui.cinzar.setText(_translate("Form", "Saturação"))
-        self.ui.segmentar.setText(_translate("Form", "Rotação"))
-        self.ui.blur.setText(_translate("Form", "Temperatura"))
-        self.ui.contraste.setText(_translate("Form", "Contraste"))
-        self.ui.filtro6.setText(_translate("Form", "Sombras"))
-        self.ui.filtro7.setText(_translate("Form", "Nitidez"))
-        self.ui.filtro8.setText(_translate("Form", "Vinheta"))
+        self.ui.funcao1.setText(_translate("Form", "Brilho"))
+        self.ui.funcao2.setText(_translate("Form", "Saturação"))
+        self.ui.funcao3.setText(_translate("Form", "Rotação"))
+        self.ui.funcao4.setText(_translate("Form", "Temperatura"))
+        self.ui.funcao5.setText(_translate("Form", "Contraste"))
+        self.ui.funcao6.setText(_translate("Form", "Fazer Filtro"))
+        self.ui.funcao7.setText(_translate("Form", "Iluminância"))
+        self.ui.funcao8.setText(_translate("Form", "Vinheta"))
 
         # -------------------------------------- Mudando o valor do slider ------------
         self.primeiraIteracao = 0
          
-    def normal(self):
+    def funcao1(self):                                                         # Colocar Função de Filtro 1 aqui
 
         
         if(self.toUsandoFiltro):
 
             if(self.do_i_edited_an_image == True):
 
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                print("Função de normal usando foto taked")
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
             
             
         else:
+            
+            # Função de brilho
+            
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.normal.setFont(font)
+            self.ui.funcao1.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.segmentar.setFont(font)            
-            self.ui.cinzar.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro6.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao3.setFont(font)            
+            self.ui.funcao2.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao6.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
 
             
             self.queFuncaoEdicao = 0    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -344,39 +380,40 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
 
-    def cinza(self):
+    def funcao2(self):                                                         # Colocar Função de Filtro 2 aqui
         
         if(self.toUsandoFiltro):
             
             if(self.do_i_edited_an_image == True):
     
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toGray("./images/PhotoInEdition/edited.jpg")))  # Colocar Função 3
             
             else:
-                print("Função de normal usando foto taked")
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
             
         else:
+
+            # Saturação
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.cinzar.setFont(font)
+            self.ui.funcao2.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.segmentar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro6.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao3.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao6.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
 
             self.queFuncaoEdicao = 1    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
@@ -385,40 +422,40 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
             
-    def segmentarImage(self):
+    def funcao3(self):                                                         # Colocar Função de Filtro 3 aqui
         
         if(self.toUsandoFiltro):
 
             if(self.do_i_edited_an_image == True):
             
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
                 
 
         else:
-
+            # Rotação
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.segmentar.setFont(font)
+            self.ui.funcao3.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro6.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao6.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
     
 
             self.queFuncaoEdicao = 2    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -429,39 +466,39 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
                        
-    def smooth(self):
+    def funcao4(self):                                                         # Colocar Função de Filtro 4 aqui
 
         if(self.toUsandoFiltro):
             
             if(self.do_i_edited_an_image == True):
             
-                self.ui.image_label.setPixmap(QtGui.QPixmap(smooth("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(smooth(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         else:
-
+            # Temperatura
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.blur.setFont(font)
+            self.ui.funcao4.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.segmentar.setFont(font)
-            self.ui.filtro6.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao3.setFont(font)
+            self.ui.funcao6.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
     
 
             self.queFuncaoEdicao = 3    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -471,41 +508,41 @@ class TelaEdicao(QtWidgets.QWidget):
             valor = self.sliderValues[3]
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
-            
-            print("Usando edição Temperatura")  
      
-    def realcar(self):
+    def funcao5(self):                                                         # Colocar Função de Filtro 5 aqui
+
         if(self.toUsandoFiltro):
            
             if(self.do_i_edited_an_image == True):
                 
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         else:
 
+            #Contraste
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.contraste.setFont(font)
+            self.ui.funcao5.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.segmentar.setFont(font)
-            self.ui.filtro6.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao3.setFont(font)
+            self.ui.funcao6.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
     
 
             self.queFuncaoEdicao = 4    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
@@ -515,40 +552,41 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
             
-    def filtro6(self):                                                         # Mudar o filtro [ toGray() ] usado para o filtro 6 feito 
+    def funcao6(self):                                                         # Colocar Função de Filtro 6 aqui 
         
         if(self.toUsandoFiltro):
             
             if(self.do_i_edited_an_image == True):
                 
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         else:
 
-            
+            # Iluminancia
+
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.filtro6.setFont(font)
+            self.ui.funcao6.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.segmentar.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao3.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao8.setFont(font)
 
             self.queFuncaoEdicao = 5    #                            variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.ui.slider.setEnabled(False) 
@@ -557,40 +595,40 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
             
-    def filtro7(self):                                                         # Mudar o filtro [ toNormal() ] usado para o filtro 7 feito 
+    def funcao7(self):                                                         # Colocar Função de Filtro 7 aqui
         
         if(self.toUsandoFiltro):
             
             if(self.do_i_edited_an_image == True):
                 
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
 
         else:
-
+            # Nitidez
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.filtro7.setFont(font)
+            self.ui.funcao7.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.segmentar.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro6.setFont(font)            
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao3.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao6.setFont(font)            
+            self.ui.funcao8.setFont(font)
 
             self.queFuncaoEdicao = 6    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
@@ -601,39 +639,40 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
         
-    def filtro8(self):                                                          # Mudar o filtro [ toGray() ] usado para o filtro 8 feito
+    def funcao8(self):                                                         # Colocar Função de Filtro 8 aqui
         
         if(self.toUsandoFiltro):
             
             if(self.do_i_edited_an_image == True):
                 
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             
             else:
-                self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         else:
 
+            # Vinheta
             font = QtGui.QFont()
             font.setPointSize(8)
             font.setBold(True)
             font.setItalic(False)
             font.setUnderline(True)
             font.setWeight(75)
-            self.ui.filtro8.setFont(font)
+            self.ui.funcao8.setFont(font)
 
             font.setBold(False)
             font.setItalic(False)
             font.setUnderline(False)
             font.setWeight(50)
             
-            self.ui.cinzar.setFont(font)            
-            self.ui.normal.setFont(font)
-            self.ui.blur.setFont(font)
-            self.ui.segmentar.setFont(font)
-            self.ui.contraste.setFont(font)
-            self.ui.filtro7.setFont(font)            
-            self.ui.filtro6.setFont(font)
+            self.ui.funcao2.setFont(font)            
+            self.ui.funcao1.setFont(font)
+            self.ui.funcao4.setFont(font)
+            self.ui.funcao3.setFont(font)
+            self.ui.funcao5.setFont(font)
+            self.ui.funcao7.setFont(font)            
+            self.ui.funcao6.setFont(font)
 
             self.queFuncaoEdicao = 7    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
@@ -654,6 +693,7 @@ class TelaEdicao(QtWidgets.QWidget):
                 
                 self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images         
                 self.length = len([name for name in os.listdir(self.img_dir) ])
+                
                 if(self.length > 0):
                     self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length-1) + "{}".format(".jpg")
                 else:
@@ -663,97 +703,129 @@ class TelaEdicao(QtWidgets.QWidget):
                 self.primeiraIteracao = 1
                 
             
-            if(self.queFuncaoEdicao == 0):
+            if(self.queFuncaoEdicao == 0):  #Brilho
                             
                 if( self.length > 0 ):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(brilho(self.imagePath, self.ui.slider.value(), self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(brilho(self.imagePath, self.ui.slider.value(), self.length )))
         
                 else:
-
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(brilho(IMAGE_TAKED, self.ui.slider.value(), self.length)))
+                    
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(brilho(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(brilho(IMAGE_TAKED, self.ui.slider.value(), self.length)))
                 
                 self.sliderValues[0] = self.ui.slider.value()
                 
-            elif(self.queFuncaoEdicao == 1):
-
-                print("Saturação")
+            elif(self.queFuncaoEdicao == 1): #Saturação
 
                 if(self.length > 0):
                 
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(saturaration(self.imagePath, self.ui.slider.value(), self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(saturaration(self.imagePath, self.ui.slider.value(), self.length )))
 
                 else:
-                    print("Primeira Edição .........")
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(saturaration(IMAGE_TAKED, self.ui.slider.value(), self.length )))
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(saturaration(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(saturaration(IMAGE_TAKED, self.ui.slider.value(), self.length )))
 
                 self.sliderValues[1] = self.ui.slider.value()
                         
-            elif(self.queFuncaoEdicao == 2):
+            elif(self.queFuncaoEdicao == 2): #Rotação
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(rotacionar(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(rotacionar(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(rotacionar(IMAGE_TAKED, self.ui.slider.value(), self.length)))
+                    
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(rotacionar(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(rotacionar(IMAGE_TAKED, self.ui.slider.value(), self.length)))
 
                 self.sliderValues[2] =  self.ui.slider.value()   
 
 
-            elif(self.queFuncaoEdicao == 3):
+            elif(self.queFuncaoEdicao == 3): #Temperatura
                     
-                
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(warmth(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[3] = self.ui.slider.value()    
 
-            elif(self.queFuncaoEdicao == 4):
+            elif(self.queFuncaoEdicao == 4): #Contraste
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(contraste(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(contraste(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(contraste(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(contraste(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(contraste(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[4] = self.ui.slider.value()    
             
-            elif(self.queFuncaoEdicao == 5):
+            elif(self.queFuncaoEdicao == 5): # Fazer Filtro usando luminancia como teste
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[5] = self.ui.slider.value()    
 
-            elif(self.queFuncaoEdicao == 6):
+            elif(self.queFuncaoEdicao == 6): #Iluminancia
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(luminancia(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(luminancia(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(luminancia(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[6] = self.ui.slider.value()
 
-            elif(self.queFuncaoEdicao == 7):
+            elif(self.queFuncaoEdicao == 7): # Vinheta
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(vinheta(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.imagemCentral.setPixmap(QtGui.QPixmap(vinheta(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(vinheta(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    
+                    if(self.do_i_filtered_an_image == True):
+                        
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(vinheta(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    else:
+                        self.ui.imagemCentral.setPixmap(QtGui.QPixmap(vinheta(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[7] = self.ui.slider.value()
 
