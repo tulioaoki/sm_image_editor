@@ -16,6 +16,9 @@ from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
 from funcoesModificao.warmth import warmth
+from funcoesModificao.contraste import contraste
+from funcoesModificao.luminancia import luminancia
+from funcoesModificao.vinheta import vinheta
 
 import array
 
@@ -699,10 +702,10 @@ class TelaEdicao(QtWidgets.QWidget):
                     
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(contraste(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(contraste(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[4] = self.ui.slider.value()    
             
@@ -721,10 +724,10 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(luminancia(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(luminancia(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[6] = self.ui.slider.value()
 
@@ -732,10 +735,10 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 if( self.length > 0):
                     
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(self.imagePath, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(vinheta(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(warmth(IMAGE_TAKED, self.ui.slider.value(),self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(vinheta(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[7] = self.ui.slider.value()
 
