@@ -16,6 +16,7 @@ class Ui_Edicao_Foto_Form(object):
         Form.resize(645, 649)
         self.slider = QtWidgets.QSlider(Form)
         self.slider.setEnabled(False)
+        self.slider.setVisible(False)
         self.slider.setGeometry(QtCore.QRect(150, 570, 311, 21))
         self.slider.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.slider.setMaximum(255)
@@ -254,27 +255,21 @@ class Ui_Edicao_Foto_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
+
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Cam view"))
         self.publicar.setText(_translate("Form", "Publicar"))
-        self.funcao7.setText(_translate("Form", "Filtro7"))
-        self.funcao1.setText(_translate("Form", "Normal"))
-        self.funcao6.setText(_translate("Form", "Filtro6"))
-        self.funcao2.setText(_translate("Form", "Cinza"))
-        self.funcao4.setText(_translate("Form", "Blur"))
-        self.funcao5.setText(_translate("Form", "Contraste"))
-        self.funcao3.setText(_translate("Form", "Segmentar"))
-        self.funcao8.setText(_translate("Form", "Filtro 8"))
         self.botaoFiltro.setText(_translate("Form", "Filtro"))
         self.botaoEditar.setText(_translate("Form", "Editar"))
         self.voltar.setText(_translate("Form", "Voltar"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+        
+        self.funcao1.setText(_translate("Form", "Normal"))
+        self.funcao2.setText(_translate("Form", "Cinza"))
+        self.funcao3.setText(_translate("Form", "Filtro 3"))
+        self.funcao4.setText(_translate("Form", "Filtro 4"))
+        self.funcao5.setText(_translate("Form", "Filtro 5"))
+        self.funcao6.setText(_translate("Form", "Filtro 6"))
+        self.funcao7.setText(_translate("Form", "Filtro 7"))
+        self.funcao8.setText(_translate("Form", "Filtro 8"))
+        

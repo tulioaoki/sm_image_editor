@@ -50,6 +50,7 @@ class TelaEdicao(QtWidgets.QWidget):
     do_i_edited_an_image = os.path.exists("./images/PhotoInEdition/edited.jpg")
     do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
 
+    
     def __init__(self):
         # call QWidget constructor
         super().__init__()
@@ -58,9 +59,12 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(IMAGE_TAKED))
         self.image = None
         self.ui.slider.setValue(self.sliderValues[0])
+        
+        self.ui.slider.setVisible(False)
+
         #----- Setar a imagens dos Filtros ---------------------------------------
 
-  
+
         self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
 
         self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap(toGray(IMAGE_TAKED)))
@@ -134,18 +138,32 @@ class TelaEdicao(QtWidgets.QWidget):
         
         cv2.imwrite(final, img)
         
+        
         #--------- Limpando as fotos que estão nas pastas
         
         pasta1 = "./images/PhotoInEdition/" 
         pasta2 = "./images/FuncaoDeEdicao/" 
         
-
-        for image in os.listdir(pasta1):
-            os.remove(image)     
+        try:
+            for image in os.listdir(pasta1):
                 
-        for image in os.listdir(pasta2):
-            os.remove(image)     
+                imagem = pasta1 + image
+                print("Imagem que será apagada: " + "{}".format(imagem))
+                os.remove(imagem)     
+        
+        except Exception as e:
+            print("Erro ao deletar: " + "{}".format(e))        
+        
+        try:
+        
+            for image in os.listdir(pasta2):
+                imagem = pasta2 + image
+                print("Imagem que será apagada: " + "{}".format(imagem))
+                os.remove(imagem)
 
+        except Exception as e:
+            print("Erro ao deletar: " + e)
+        
         self.inicialScreen.emit()
 
     def voltar(self):
@@ -155,18 +173,44 @@ class TelaEdicao(QtWidgets.QWidget):
         pasta1 = "./images/PhotoInEdition/" 
         pasta2 = "./images/FuncaoDeEdicao/" 
         
-
-        for image in os.listdir(pasta1):
-            os.remove(image)     
+        try:
+            for image in os.listdir(pasta1):
                 
-        for image in os.listdir(pasta2):
-            os.remove(image)     
+                imagem = pasta1 + image
+                print("Imagem que será apagada: " + "{}".format(imagem))
+                os.remove(imagem)     
+        
+        except Exception as e:
+            print("Erro ao deletar: " + "{}".format(e))        
+        
+        try:
+        
+            for image in os.listdir(pasta2):
+                imagem = pasta2 + image
+                print("Imagem que será apagada: " + "{}".format(imagem))
+                os.remove(imagem)
+
+        except Exception as e:
+            print("Erro ao deletar: " + e)
 
         self.voltando.emit()
 
     def usandoFiltro(self):
         
+        # Deletando a imagem que foi filtrada anteriormente para eu poder usar outros filtros
+
+        self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
+
+        if(self.do_i_edited_an_image == True):
+
         
+            imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
+            
+            try:
+                    os.remove(imagemFiltradaAnteriormente)     
+            
+            except Exception as e:
+                print("Erro ao deletar: " + "{}".format(e))        
         
         # ----------------------------------- Sentando a Fonte do botao filtro
         
@@ -194,19 +238,26 @@ class TelaEdicao(QtWidgets.QWidget):
         
         finalimageEdited = "edited" + (length-1) + ".jpg"
 
-        for image in os.listdir(img_dir):
-
-            if(image == finalimageEdited):
-                
+        try:
+        
+            for image in os.listdir(img_dir):
+    
                 imagemEditada = img_dir + image
 
-                img = cv2.imread(imagemEditada)
-                cv2.imwrite("./images/PhotoInEdition/edited.jpg",img)
-                
-            os.remove(image)     
+                if(image == finalimageEdited):  # Salva a ultima foto editada e coloca ela na pasta PhotoEdition e apaga ela da pasta FuncaoDeEdicao
+                    
+                    img = cv2.imread(imagemEditada)
+                    cv2.imwrite("./images/PhotoInEdition/edited.jpg",img)
+                    
+                os.remove(imagemEditada)     
 
-        # ------------------- Vê se existe a foto editada pelas funções de edição
+        except Exception as e:
+            print("Erro ao deletar: " + e)
+
+
         
+        # ------------------- Vê se existe a foto editada pelas funções de edição
+
         self.do_i_edited_an_image  = os.path.exists("./images/PhotoInEdition/edited.jpg")
     
         if(self.do_i_edited_an_image == True):
@@ -244,12 +295,12 @@ class TelaEdicao(QtWidgets.QWidget):
         _translate = QtCore.QCoreApplication.translate        
         self.ui.funcao1.setText(_translate("Form", "Normal"))
         self.ui.funcao2.setText(_translate("Form", "Cinza"))
-        self.ui.funcao3.setText(_translate("Form", "Função 3"))
-        self.ui.funcao4.setText(_translate("Form", "Função 4"))
-        self.ui.funcao5.setText(_translate("Form", "Função 5"))
-        self.ui.funcao6.setText(_translate("Form", "Função 6"))
-        self.ui.funcao7.setText(_translate("Form", "Função 7"))
-        self.ui.funcao8.setText(_translate("Form", "Função 8"))
+        self.ui.funcao3.setText(_translate("Form", "Filtro 3"))
+        self.ui.funcao4.setText(_translate("Form", "Filtro 4"))
+        self.ui.funcao5.setText(_translate("Form", "Filtro 5"))
+        self.ui.funcao6.setText(_translate("Form", "Filtro 6"))
+        self.ui.funcao7.setText(_translate("Form", "Filtro 7"))
+        self.ui.funcao8.setText(_translate("Form", "Filtro 8"))
         
         #--------------------------------------- Seta a fonte dos botoes da cada filtro
         font = QtGui.QFont()
@@ -267,6 +318,21 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.funcao8.setFont(font)
      
     def usandoEdicao(self):
+
+        # Deletando a foto editada já que vamos editar ela denovo com brilho , rotação , contraste, ......
+
+        self.do_i_edited_an_image = os.path.exists("./images/PhotoInEdition/edited.jpg")
+
+        if(self.do_i_edited_an_image == True):
+
+            imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
+            
+            try:
+                    os.remove(imagemFiltradaAnteriormente)     
+            
+            except Exception as e:
+                print("Erro ao deletar: " + "{}".format(e))        
+            
 
         self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
         

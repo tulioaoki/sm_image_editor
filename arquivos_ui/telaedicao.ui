@@ -86,7 +86,7 @@
    <widget class="QWidget" name="scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
-      <x>-481</x>
+      <x>-470</x>
       <y>0</y>
       <width>1140</width>
       <height>142</height>
@@ -108,7 +108,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Filtro7</string>
+        <string>Filtro 7</string>
        </property>
       </widget>
      </item>
@@ -215,7 +215,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Filtro6</string>
+        <string>Filtro 6</string>
        </property>
       </widget>
      </item>
@@ -261,7 +261,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Blur</string>
+        <string>Filtro 4</string>
        </property>
       </widget>
      </item>
@@ -280,7 +280,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Contraste</string>
+        <string>Filtro 5</string>
        </property>
       </widget>
      </item>
@@ -365,7 +365,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Segmentar</string>
+        <string>Filtro 3</string>
        </property>
       </widget>
      </item>
