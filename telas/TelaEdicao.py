@@ -16,8 +16,8 @@ from funcoesModificao.smoothingCopy import smoothTeste
 from funcoesModificao.brilho import brilho
 from funcoesModificao.rotacao import rotacionar
 from funcoesModificao.warmth import warmth
+from funcoesModificao.saturation import saturaration
 
-import array
 
 
 IMAGE_FILTERED = "./images/PhotoInEdition/filtered.jpg"
@@ -269,8 +269,8 @@ class TelaEdicao(QtWidgets.QWidget):
         # -------------------------------------- Mudando o nome dos botões ------------
         _translate = QtCore.QCoreApplication.translate        
         self.ui.normal.setText(_translate("Form", "Brilho"))
-        self.ui.segmentar.setText(_translate("Form", "Rotação"))
         self.ui.cinzar.setText(_translate("Form", "Saturação"))
+        self.ui.segmentar.setText(_translate("Form", "Rotação"))
         self.ui.blur.setText(_translate("Form", "Temperatura"))
         self.ui.contraste.setText(_translate("Form", "Contraste"))
         self.ui.filtro6.setText(_translate("Form", "Sombras"))
@@ -642,10 +642,8 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 self.tenhoEssaImagem = os.path.exists(self.imagePath)
                 self.primeiraIteracao = 1
-                print("Que imagem é o path " + "{}".format(self.imagePath))
                 
-            print("Quantas imagens eu ja tenho fora do if: " + "{}".format(self.length))
-
+            
             if(self.queFuncaoEdicao == 0):
                             
                 if( self.length > 0 ):
@@ -660,18 +658,20 @@ class TelaEdicao(QtWidgets.QWidget):
                 
             elif(self.queFuncaoEdicao == 1):
 
-                if(self.do_i_edited_an_image == True):
+                print("Saturação")
+
+                if(self.length > 0):
                 
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(smoothTeste(self.imagePath, self.ui.slider.value(), self.length )))
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(saturaration(self.imagePath, self.ui.slider.value(), self.length )))
 
                 else:
-                    self.ui.image_label.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))
+                    print("Primeira Edição .........")
+                    self.ui.image_label.setPixmap(QtGui.QPixmap(saturaration(IMAGE_TAKED, self.ui.slider.value(), self.length )))
 
                 self.sliderValues[1] = self.ui.slider.value()
                         
             elif(self.queFuncaoEdicao == 2):
                     
-
                 if( self.length > 0):
                     
                     self.ui.image_label.setPixmap(QtGui.QPixmap(rotacionar(self.imagePath, self.ui.slider.value(),self.length )))
@@ -680,7 +680,6 @@ class TelaEdicao(QtWidgets.QWidget):
                     self.ui.image_label.setPixmap(QtGui.QPixmap(rotacionar(IMAGE_TAKED, self.ui.slider.value(), self.length)))
 
                 self.sliderValues[2] =  self.ui.slider.value()   
-            
 
 
             elif(self.queFuncaoEdicao == 3):
