@@ -81,6 +81,19 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap(toNormal(IMAGE_TAKED)))  # Fazer filtro 8
 
+        self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
+
+
+        if(self.do_i_edited_an_image == True):
+
+        
+            imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
+            
+            try:
+                    os.remove(imagemFiltradaAnteriormente)     
+            
+            except Exception as e:
+                print("Erro ao deletar: " + "{}".format(e))        
                    
         
         #----- Pages Buttons Actons on Clicked -------------------------------------
@@ -236,7 +249,9 @@ class TelaEdicao(QtWidgets.QWidget):
         
         length = len([name for name in os.listdir(img_dir) ]) 
         
-        finalimageEdited = "edited" + (length-1) + ".jpg"
+        queImagem = length -1
+
+        finalimageEdited = "edited" + "{}".format(queImagem) + ".jpg"
 
         try:
         
@@ -375,7 +390,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezIcon.png"))    # Fazer filtro 7
 
-        self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap("./images/EditedIcons/vinhetaIconIcon.png"))  # Fazer filtro 8
+        self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap("./images/EditedIcons/vinhetaIcon.png"))  # Fazer filtro 8
 
         # ------------------------------------ Tornando o Slider Visivel e disponivel
 
@@ -483,7 +498,8 @@ class TelaEdicao(QtWidgets.QWidget):
 
             self.queFuncaoEdicao = 1    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
-            self.ui.slider.setEnabled(False) 
+            self.ui.slider.setEnabled(False)
+            self.primeiraIteracao = 0 
             valor = self.sliderValues[1]
             self.ui.slider.setValue(valor)
             self.ui.slider.setEnabled(True)
@@ -795,6 +811,7 @@ class TelaEdicao(QtWidgets.QWidget):
                     if(self.do_i_filtered_an_image == True):
                         
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(saturaration(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
+                    
                     else:
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(saturaration(IMAGE_TAKED, self.ui.slider.value(), self.length )))
 

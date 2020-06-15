@@ -12,8 +12,7 @@ def rotacionar(IMAGE_NAME ,value, imgNumber):
     rotated_image = cv2.warpAffine(original, rotation_matrix, (width, height))
     
     imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-    print("To salvando em: " + "{}".format(imagem))
-
+    
     cv2.imwrite(imagem , rotated_image)   # Save the image
         
     return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")

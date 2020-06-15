@@ -49,8 +49,6 @@ def warmth(IMAGE_NAME ,value, imgNumber):
     
     if(value >= 127):
 
-        print("Função Quente")
-
         multiplicador = value - 127
         result = multiplicador * 0.204
         valor = round(result)
@@ -67,9 +65,7 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         
 
     elif(value < 127):
-       
-        print("Função fria")
-        
+              
         multiplicador = 127 - value
 
         result = multiplicador * 0.204

@@ -15,11 +15,8 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
     img  = cv2.imread(IMAGE_NAME)
 
     imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-           
     
     if(value >= 127):
-
-        print("Função Quente")
 
         multiplicador = value - 127
         result = multiplicador * 0.32
@@ -37,8 +34,6 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
         
 
     elif(value < 127):
-       
-        print("Função fria")
         
         multiplicador = 127 - value
         result = multiplicador * 0.342

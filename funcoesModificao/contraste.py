@@ -30,7 +30,7 @@ def contraste(IMAGE_NAME, value, imgNumber):
 
 
     # [Salva o caminho da imagem]
-        imagePath = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+    imagePath = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
 
     # [Salva a imagem]
     cv2.imwrite(imagePath, output) 
