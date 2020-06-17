@@ -16,9 +16,9 @@
   <widget class="QPushButton" name="control_bt">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>20</x>
      <y>580</y>
-     <width>201</width>
+     <width>141</width>
      <height>41</height>
     </rect>
    </property>
@@ -32,9 +32,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>390</x>
+     <x>470</x>
      <y>580</y>
-     <width>211</width>
+     <width>141</width>
      <height>41</height>
     </rect>
    </property>
@@ -66,6 +66,19 @@
    </property>
    <property name="text">
     <string>Voltar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="desenhar">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>580</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DESENHAR: DESLIGADO</string>
    </property>
   </widget>
  </widget>
