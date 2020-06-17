@@ -8,7 +8,7 @@ def vinheta (IMAGE_NAME, value, imgNumber):
          multiplicador = (950 - value)
          result = multiplicador * 0.20   # 0.20 = 25/127    25:limite  127: possibilidades
          value = round(result)
-     elif(value > 128)
+     elif(value > 128):
          multiplicador = 950 - value
          result = multiplicador * 0.20   # 0.20 = 25/127    25:limite  127: possibilidades
          value = round(result)
