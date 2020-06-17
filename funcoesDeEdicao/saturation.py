@@ -16,9 +16,9 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
 
     imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
     
-    if(value >= 127):
+    if(value > 128):
 
-        multiplicador = value - 127
+        multiplicador = value - 128
         result = multiplicador * 0.32
         valor = round(result)
 
@@ -33,9 +33,9 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
         return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
         
 
-    elif(value < 127):
+    elif(value < 128):
         
-        multiplicador = 127 - value
+        multiplicador = 128 - value
         result = multiplicador * 0.342
         valor = round(result)
         
@@ -50,7 +50,9 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
         cv2.imwrite(imagem , final)   # Save the image
         
         return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-        
+
+    else:
+        return IMAGE_NAME    
         
 #img1 = saturaration("./images/PublishedPhoto/fotoTirada.jpg" , 255 , 1)
 

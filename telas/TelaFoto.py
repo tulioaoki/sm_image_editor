@@ -22,7 +22,7 @@ class TelaFoto(QtWidgets.QWidget):
 
     myColors = [[149, 157, 0, 179, 255, 255],   # [Rosa Marca-Texto]
                     [30, 120, 90, 80, 255, 255],    # [Verde Marca-Texto]
-                    [89, 42, 0, 109, 129, 255]]     # [Azul Bebe]
+                    ]     # [Azul Bebe]
 
                         ## BGR
     myColorValues = [[255,0,255],       # [Rosa]
@@ -39,11 +39,7 @@ class TelaFoto(QtWidgets.QWidget):
         self.image = None
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        #QtWidgets.QWidget.__init__(self)
         self.setWindowTitle('Tire sua foto')
-
-        #layout = QtWidgets.QGridLayout()
-
         self.button = QtWidgets.QPushButton('Login')
         # create a timer
         self.timer = QTimer()
@@ -100,11 +96,8 @@ class TelaFoto(QtWidgets.QWidget):
         self.pararDeDesenhar == False
         _translate = QtCore.QCoreApplication.translate
         self.ui.desenhar.setText(_translate("Form", "DESENHAR: DESLIGADO"))
-        #font = cv2.FONT_HERSHEY_SIMPLEX
-        #cv2.putText(self.image, 'Nice Lucas', (30, 50), font, 2, (255, 0, 0), 2, cv2.LINE_AA)
-        # Imagem src, Img Name, Position(x,y), Fontfamily, FontSize, color, widthFont, Default (deixa como esta)
+       
         self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-        cv2.imwrite( "./images/PhotoInEdition/filtered.jpg", self.image)
         cv2.imwrite("./images/PhotoInEdition/fotoTirada.jpg", self.image)
         self.ui.image_label.setPixmap(QtGui.QPixmap("./images/PhotoInEdition/fotoTirada.jpg"))
         self.ui.editar.setEnabled(True)

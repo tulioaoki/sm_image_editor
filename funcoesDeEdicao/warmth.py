@@ -47,9 +47,9 @@ def cold(image,valor):
 def warmth(IMAGE_NAME ,value, imgNumber):
 
     
-    if(value >= 127):
+    if(value > 128):
 
-        multiplicador = value - 127
+        multiplicador = value - 128
         result = multiplicador * 0.204
         valor = round(result)
         img  = cv2.imread(IMAGE_NAME)    
@@ -64,9 +64,9 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
         
 
-    elif(value < 127):
+    elif(value < 128):
               
-        multiplicador = 127 - value
+        multiplicador = 128 - value
 
         result = multiplicador * 0.204
 
@@ -81,5 +81,7 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         cv2.imwrite(imagem , final)   # Save the image
         
         return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-
+    
+    else:
+        return IMAGE_NAME
 

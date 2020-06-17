@@ -2,10 +2,14 @@ import cv2
 
 def rotacionar(IMAGE_NAME ,value, imgNumber):
 
-    if(value < 127):
-        value = -(127 - value)
+    if(value < 128):
+        value = -(128 - value)
+    elif(value > 128):
+        value = value - 128
+    
     else:
-        value = value - 127
+        return IMAGE_NAME
+        
     original=cv2.imread(IMAGE_NAME)
     height, width = original.shape[:2]
     rotation_matrix = cv2.getRotationMatrix2D((width / 2, height / 2), value, 1)

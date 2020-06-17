@@ -32,10 +32,6 @@ class Ui_Inicial_Form(object):
         img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
         i = 0
 
-        length = len([name for name in os.listdir(img_dir) ]) 
-        print("ESTOU NA TELA INICIAL")
-        print("Quantidade de fotos publicadas = " + "{}".format(length) ) 
-        
         for fl in os.listdir(img_dir):
           
             if(i == 0):

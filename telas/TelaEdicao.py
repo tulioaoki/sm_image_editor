@@ -92,18 +92,16 @@ class TelaEdicao(QtWidgets.QWidget):
         self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
 
 
-        if(self.do_i_edited_an_image == True):
-
-        
-            imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
+        imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
             
-            try:
-                    os.remove(imagemFiltradaAnteriormente)     
+        try:
+            os.remove(imagemFiltradaAnteriormente)     
             
-            except Exception as e:
-                print("Erro ao deletar: " + "{}".format(e))        
+        except Exception as e:
+            print("Erro ao deletar: " + "{}".format(e))        
                    
-        
+        self.do_i_filtered_an_image == False
+
         #----- Pages Buttons Actons on Clicked -------------------------------------
 
         self.ui.publicar.clicked.connect(self.telaInicial)
@@ -169,7 +167,6 @@ class TelaEdicao(QtWidgets.QWidget):
             for image in os.listdir(pasta1):
                 
                 imagem = pasta1 + image
-                print("Imagem que será apagada: " + "{}".format(imagem))
                 os.remove(imagem)     
         
         except Exception as e:
@@ -179,7 +176,6 @@ class TelaEdicao(QtWidgets.QWidget):
         
             for image in os.listdir(pasta2):
                 imagem = pasta2 + image
-                print("Imagem que será apagada: " + "{}".format(imagem))
                 os.remove(imagem)
 
         except Exception as e:
@@ -198,7 +194,6 @@ class TelaEdicao(QtWidgets.QWidget):
             for image in os.listdir(pasta1):
                 
                 imagem = pasta1 + image
-                print("Imagem que será apagada: " + "{}".format(imagem))
                 os.remove(imagem)     
         
         except Exception as e:
@@ -208,11 +203,19 @@ class TelaEdicao(QtWidgets.QWidget):
         
             for image in os.listdir(pasta2):
                 imagem = pasta2 + image
-                print("Imagem que será apagada: " + "{}".format(imagem))
                 os.remove(imagem)
 
         except Exception as e:
             print("Erro ao deletar: " + e)
+
+        self.sliderValues[0] = 128
+        self.sliderValues[1] = 128
+        self.sliderValues[2] = 128
+        self.sliderValues[3] = 128
+        self.sliderValues[4] = 128
+        self.sliderValues[5] = 2
+        self.sliderValues[6] = 128
+        self.sliderValues[7] = 128
 
         self.voltando.emit()
 
@@ -222,7 +225,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
         self.do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
 
-        if(self.do_i_edited_an_image == True):
+        if(self.do_i_filtered_an_image == True):
 
         
             imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
@@ -234,7 +237,7 @@ class TelaEdicao(QtWidgets.QWidget):
                 print("Erro ao deletar: " + "{}".format(e))        
         
         # ----------------------------------- Sentando a Fonte do botao filtro
-        
+
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
@@ -348,10 +351,12 @@ class TelaEdicao(QtWidgets.QWidget):
 
         if(self.do_i_edited_an_image == True):
 
-            imagemFiltradaAnteriormente = "./images/PhotoInEdition/filtered.jpg" 
+            print("Deletando foto filtrada")
+
+            imagemEditadaAnteriormente = "./images/PhotoInEdition/edited.jpg" 
             
             try:
-                    os.remove(imagemFiltradaAnteriormente)     
+                    os.remove(imagemEditadaAnteriormente)     
             
             except Exception as e:
                 print("Erro ao deletar: " + "{}".format(e))        
@@ -405,6 +410,8 @@ class TelaEdicao(QtWidgets.QWidget):
         self.ui.slider.setMaximum(255)
         self.ui.slider.setVisible(True)
         self.ui.slider.setEnabled(True)
+        self.ui.slider.setTickInterval(128)
+        self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
 
         # -------------------------------------- Setando a variavel para mudar a funcao dos botoes para funções de edição 
         self.toUsandoFiltro = False
@@ -466,12 +473,12 @@ class TelaEdicao(QtWidgets.QWidget):
             
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[0]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
-
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
+          
     def funcao2(self):                                                         # toInkwell
         
         if(self.toUsandoFiltro):
@@ -511,11 +518,11 @@ class TelaEdicao(QtWidgets.QWidget):
             
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False)
             self.primeiraIteracao = 0 
             valor = self.sliderValues[1]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
             
     def funcao3(self):                                                         # toReyes
         
@@ -557,12 +564,12 @@ class TelaEdicao(QtWidgets.QWidget):
             
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[2]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
-                       
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
+
     def funcao4(self):                                                         # toVintage
 
         if(self.toUsandoFiltro):
@@ -602,11 +609,11 @@ class TelaEdicao(QtWidgets.QWidget):
 
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[3]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
      
     def funcao5(self):                                                         # to1977
 
@@ -648,12 +655,12 @@ class TelaEdicao(QtWidgets.QWidget):
 
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[4]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
-            
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
+
     def funcao6(self):                                                         # toGingham 
         
         if(self.toUsandoFiltro):
@@ -667,6 +674,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
         else:
 
+            print("Botão 6 -------------------------------------------")
 
             font = QtGui.QFont()
             font.setPointSize(8)
@@ -692,11 +700,11 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setMaximum(4)
         
             self.queFuncaoEdicao = 5    #                            variavel queFuncaoEdicao escolhido para armazenar botao selecionado
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[5]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
+            self.ui.slider.setTickInterval(1)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
             
     def funcao7(self):                                                         # toAmaro
         
@@ -738,11 +746,11 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.slider.setMaximum(255)
         
             valor = self.sliderValues[6]
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[6]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
         
     def funcao8(self):                                                         # ToHighPass Precisa ajeitar coloquei o toNormal
         
@@ -784,34 +792,33 @@ class TelaEdicao(QtWidgets.QWidget):
             
             self.ui.slider.setMaximum(255)
 
-            self.ui.slider.setEnabled(False) 
             self.primeiraIteracao = 0
             valor = self.sliderValues[7]
             self.ui.slider.setValue(valor)
-            self.ui.slider.setEnabled(True)
-            
-            
-            print("Usando edição Vinheta")
+            self.ui.slider.setTickInterval(128)
+            self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
 
     def sliderChange(self):                                                    # Slider on Changed
         
-        if(self.ui.slider.isEnabled):
-
-            if(self.primeiraIteracao == 0):
-                
-                self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images         
-                self.length = len([name for name in os.listdir(self.img_dir) ])
-                
-                if(self.length > 0):
-                    self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length-1) + "{}".format(".jpg")
-                else:
-                    self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length) + "{}".format(".jpg")
-
-                self.tenhoEssaImagem = os.path.exists(self.imagePath)
-                self.primeiraIteracao = 1
-                
+        print(self.primeiraIteracao)
+        
+        if(self.primeiraIteracao == 0):
             
-            if(self.queFuncaoEdicao == 0):  #Brilho
+            self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images         
+            self.length = len([name for name in os.listdir(self.img_dir) ])
+            
+            print("Quantas fotos editadas eu tenho: " + "{}".format(self.length))
+
+            if(self.length > 0):
+                self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length-1) + "{}".format(".jpg")
+            else:
+                self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length) + "{}".format(".jpg")
+
+            self.primeiraIteracao = 1
+            
+        else:
+
+            if(self.queFuncaoEdicao == 0 and self.primeiraIteracao == 1):  #Brilho
                             
                 if( self.length > 0 ):
                     
@@ -827,7 +834,7 @@ class TelaEdicao(QtWidgets.QWidget):
                 
                 self.sliderValues[0] = self.ui.slider.value()
                 
-            elif(self.queFuncaoEdicao == 1): #Saturação
+            elif(self.queFuncaoEdicao == 1 and self.primeiraIteracao == 1): #Saturação
 
                 if(self.length > 0):
                 
@@ -843,7 +850,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 self.sliderValues[1] = self.ui.slider.value()
                         
-            elif(self.queFuncaoEdicao == 2): #Rotação
+            elif(self.queFuncaoEdicao == 2 and self.primeiraIteracao == 1): #Rotação
                     
                 if( self.length > 0):
                     
@@ -860,7 +867,7 @@ class TelaEdicao(QtWidgets.QWidget):
                 self.sliderValues[2] =  self.ui.slider.value()   
 
 
-            elif(self.queFuncaoEdicao == 3): #Temperatura
+            elif(self.queFuncaoEdicao == 3 and self.primeiraIteracao == 1): #Temperatura
                     
                 if( self.length > 0):
                     
@@ -876,7 +883,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 self.sliderValues[3] = self.ui.slider.value()    
 
-            elif(self.queFuncaoEdicao == 4): #Contraste
+            elif(self.queFuncaoEdicao == 4 and self.primeiraIteracao == 1) : #Contraste
                     
                 if( self.length > 0):
                     
@@ -892,19 +899,22 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 self.sliderValues[4] = self.ui.slider.value()    
             
-            elif(self.queFuncaoEdicao == 5): # Escolha seu Oculos
+            elif(self.queFuncaoEdicao == 5 and self.primeiraIteracao == 1): # Escolha seu Oculos
 
-                print(self.ui.slider.value())
 
                 if( self.length > 0):
                     
+                    print("Pegando foto editada")
                     self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
                     if(self.do_i_filtered_an_image == True):
                         
+                        print("Pegando foto filtrada")
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
                     else:
+
+                        print("Pegando foto tirada")
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[5] = self.ui.slider.value()    
