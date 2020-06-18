@@ -80,7 +80,9 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         
         return imagem
         
-    else:
+    elif(value == 128):
+
+        
         img  = cv2.imread(IMAGE_NAME)    
         imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
         cv2.imwrite(imagem , img)   # Save the image

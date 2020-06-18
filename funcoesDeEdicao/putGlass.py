@@ -3,17 +3,11 @@ import numpy as np
 
 def toPutGlasses(IMAGE_NAME,value,imgNumber):
 
-
-    print("Foto para pegar o rosto")
-    print(IMAGE_NAME)
-    print()
-
     face = cv2.imread(IMAGE_NAME, -1)
-    print("ROSTO --------------------------------")
-    
-    print("Que Oculos")
-    print(value)
-    
+
+    extraW = 0
+    extraH = 0
+
     if(value == 1): # Slider esta no meio
           
         oculos = cv2.imread("./images/Stickers/tugLife.png", -1)
@@ -32,7 +26,7 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
     elif(value == 3):
 
         oculos = cv2.imread("./images/Stickers/oculosMulher.png", -1)
-    
+        
     else:
         oculos = cv2.imread("./images/Stickers/oculosNormal.png", -1)
 
@@ -61,9 +55,6 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
             vetor[i+1] = w
             vetor[i+2] = y
             vetor[i+3] = h
-
-            print(x)
-            print(y)
 
             i = i + 4
 
@@ -95,12 +86,22 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
             comprimento = (vetor[0] + vetor[1]) - vetor[4]   
             inicioX = vetor[4]
 
+        if(value == 3):
 
-        comprimento = comprimento + 20  # Comprimento do oculos
-        altura = altura + 40           # Altura do oculos
+            comprimento = comprimento + 40   # Comprimento do oculos
+            altura = altura + 60          # Altura do oculos
 
+        else:
+            comprimento = comprimento + 20   # Comprimento do oculos
+            altura = altura + 40          # Altura do oculos
+
+        
         oculos = cv2.resize(oculos, (comprimento,altura))
         w, h, c = oculos.shape
+
+        
+    
+       
 
     for i in range(0, w):       # Operação Linha a Linha 
         
@@ -108,27 +109,21 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
 
             if (oculos[i, j][3] != 0):
 
-                if( (inicioX + i) <= (vetor[4] + vetor[5]) ):   
+                if( (inicioX + i) <= (vetor[4] + vetor[5]) ):
 
-                    face[inicioY - 20+ i,  inicioX- 10 + j] = oculos[i, j]
+                    if(value == 3):
+
+                        face[ (inicioY - 30 )+ i ,  inicioX- 20 + j] = oculos[i, j]
+
+                    else:
+
+                        face[ (inicioY - 20 )+ i ,  inicioX- 10 + j] = oculos[i, j]
 
 
     imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
     cv2.imwrite(imagem, face)   # Save the image
     return imagem
-    #return face
-            
 
-#img = toPutGlasses("./images/PublishedPhoto/image11.jpg",,0)
-
-#cv2.imshow("Foto com Oculos", img)
-
-
-
-#k = cv2.waitKey(0)     #  Receberá o valor do keyboard (esc == 27)
-#if (k == 27):  
-#    cv2.destroyAllWindows() # Fecha a janela
-    
 
 
 

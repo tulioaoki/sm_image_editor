@@ -15,7 +15,7 @@ def contraste(IMAGE_NAME, value, imgNumber):
         result = multiplicador * 0.63   # 0.63 = 80/127    80:limite  127: possibilidades
         value = round(result)
 
-    else:
+    elif(value == 128):
         
         img  = cv2.imread(IMAGE_NAME)    
         imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")

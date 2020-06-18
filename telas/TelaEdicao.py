@@ -27,6 +27,7 @@ from funcoesDeEdicao.vinheta import vinheta
 from funcoesDeEdicao.putGlass import toPutGlasses
 
 
+
 IMAGE_FILTERED = "./images/PhotoInEdition/filtered.jpg"
 IMAGE_TAKED = "./images/PhotoInEdition/fotoTirada.jpg"
 
@@ -57,7 +58,7 @@ class TelaEdicao(QtWidgets.QWidget):
 
     do_i_edited_an_image = os.path.exists("./images/PhotoInEdition/edited.jpg")
     do_i_filtered_an_image = os.path.exists("./images/PhotoInEdition/filtered.jpg")
-
+    i_am_on_edition_func = os.path.exists("./images/PhotoInEdition/edited0.jpg")
     
     def __init__(self):
         # call QWidget constructor
@@ -135,13 +136,42 @@ class TelaEdicao(QtWidgets.QWidget):
         self.do_i_edited_an_image  = os.path.exists("./images/PhotoInEdition/edited.jpg")
         
         self.do_i_filtered_an_image  = os.path.exists("./images/PhotoInEdition/filtered.jpg")
-    
+
+        self.i_am_on_edition_func = os.path.exists("./images/FuncaoDeEdicao/edited0.jpg")
+        
         
         img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
         length = len([name for name in os.listdir(img_dir) ])
         img = None
 
-        if(self.do_i_edited_an_image == True):
+        if(self.i_am_on_edition_func == True):
+            
+            img_dir = "./images/FuncaoDeEdicao/" 
+        
+            length = len([name for name in os.listdir(img_dir) ]) 
+        
+            queImagem = length -1
+
+            finalimageEdited = "edited" + "{}".format(queImagem) + ".jpg"
+            
+            try:
+            
+                for image in os.listdir(img_dir):
+        
+                    imagemEditada = img_dir + image
+
+                    if(image == finalimageEdited):  # Salva a ultima foto editada e coloca ela na pasta PhotoEdition e apaga ela da pasta FuncaoDeEdicao
+                        img = cv2.imread(imagemEditada)
+                        cv2.imwrite("./images/PhotoInEdition/edited.jpg",img)
+                    os.remove(imagemEditada)     
+
+            except Exception as e:
+                print("Erro ao deletar: " + e)
+
+            img = cv2.imread("./images/PhotoInEdition/edited.jpg")
+
+
+        elif(self.do_i_edited_an_image == True):
             img = cv2.imread("./images/PhotoInEdition/edited.jpg")
         
         elif(self.do_i_filtered_an_image == True):
@@ -151,13 +181,16 @@ class TelaEdicao(QtWidgets.QWidget):
         else:
             img = cv2.imread(IMAGE_TAKED)
 
+
+        img_dir = "./images/PublishedPhoto/" 
+        
+        length = len([name for name in os.listdir(img_dir) ]) 
+
         img_dir = "./images/PublishedPhoto/image"
         
-        final = img_dir + "{}".format(length) + "{}".format(".jpg")
-        
+        final = "{}{:02d}{}".format(img_dir,length,".jpg")    
+
         cv2.imwrite(final, img)
-        
-        
         #--------- Limpando as fotos que estão nas pastas
         
         pasta1 = "./images/PhotoInEdition/" 
@@ -167,19 +200,34 @@ class TelaEdicao(QtWidgets.QWidget):
             for image in os.listdir(pasta1):
                 
                 imagem = pasta1 + image
-                os.remove(imagem)     
+                
+                if( imagem != (pasta1 + "{}".format(".gitkeep"))):
+                    os.remove(imagem)     
         
         except Exception as e:
             print("Erro ao deletar: " + "{}".format(e))        
         
+
         try:
         
             for image in os.listdir(pasta2):
                 imagem = pasta2 + image
-                os.remove(imagem)
-
+                
+                if( imagem != (pasta2 + "{}".format(".gitkeep"))):
+                    os.remove(imagem)     
+        
         except Exception as e:
             print("Erro ao deletar: " + e)
+        
+        self.sliderValues[0] = 128
+        self.sliderValues[1] = 128
+        self.sliderValues[2] = 128
+        self.sliderValues[3] = 128
+        self.sliderValues[4] = 128
+        self.sliderValues[5] = 2
+        self.sliderValues[6] = 128
+        self.sliderValues[7] = 128
+
         
         self.inicialScreen.emit()
 
@@ -269,9 +317,9 @@ class TelaEdicao(QtWidgets.QWidget):
             for image in os.listdir(img_dir):
     
                 imagemEditada = img_dir + image
-
+               
                 if(image == finalimageEdited):  # Salva a ultima foto editada e coloca ela na pasta PhotoEdition e apaga ela da pasta FuncaoDeEdicao
-                    
+
                     img = cv2.imread(imagemEditada)
                     cv2.imwrite("./images/PhotoInEdition/edited.jpg",img)
                     
@@ -697,12 +745,13 @@ class TelaEdicao(QtWidgets.QWidget):
             self.ui.funcao7.setFont(font)            
             self.ui.funcao8.setFont(font)
 
-            self.ui.slider.setMaximum(4)
-        
+            
             self.queFuncaoEdicao = 5    #                            variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             self.primeiraIteracao = 0
             valor = self.sliderValues[5]
+            
             self.ui.slider.setValue(valor)
+            self.ui.slider.setMaximum(4)
             self.ui.slider.setTickInterval(1)
             self.ui.slider.setTickPosition( self.ui.slider.TicksBelow)
             
@@ -744,7 +793,6 @@ class TelaEdicao(QtWidgets.QWidget):
             self.queFuncaoEdicao = 6    # variavel queFuncaoEdicao escolhido para armazenar botao selecionado
             
             self.ui.slider.setMaximum(255)
-        
             valor = self.sliderValues[6]
             self.primeiraIteracao = 0
             valor = self.sliderValues[6]
@@ -800,14 +848,16 @@ class TelaEdicao(QtWidgets.QWidget):
 
     def sliderChange(self):                                                    # Slider on Changed
         
-        print(self.primeiraIteracao)
-        
         if(self.primeiraIteracao == 0):
             
-            self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images         
-            self.length = len([name for name in os.listdir(self.img_dir) ])
-            
-            if(self.length > 0):
+            self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images  
+
+
+            self.length = len([name for name in os.listdir(self.img_dir) ]) 
+
+            print(self.length)
+
+            if( self.length > 0):
                 self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length-1) + "{}".format(".jpg")
             else:
                 self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length) + "{}".format(".jpg")
@@ -907,6 +957,7 @@ class TelaEdicao(QtWidgets.QWidget):
                         
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
                     else:
+
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[5] = self.ui.slider.value()    
