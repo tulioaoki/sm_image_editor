@@ -16,8 +16,12 @@ def contraste(IMAGE_NAME, value, imgNumber):
         value = round(result)
 
     else:
-        return IMAGE_NAME
         
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
+
     # [Ler imagem]
     image = cv2.imread(IMAGE_NAME)
 

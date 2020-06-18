@@ -8,7 +8,10 @@ def rotacionar(IMAGE_NAME ,value, imgNumber):
         value = value - 128
     
     else:
-        return IMAGE_NAME
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
         
     original=cv2.imread(IMAGE_NAME)
     height, width = original.shape[:2]

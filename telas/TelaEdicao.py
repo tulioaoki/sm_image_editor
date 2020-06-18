@@ -288,7 +288,7 @@ class TelaEdicao(QtWidgets.QWidget):
     
         if(self.do_i_edited_an_image == True):
                 
-            self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
+            self.ui.imagemFuncao1.setPixmap(QtGui.QPixmap(toNormal("./images/PhotoInEdition/edited.jpg")))
             self.ui.imagemFuncao2.setPixmap(QtGui.QPixmap(toInkwell("./images/PhotoInEdition/edited.jpg")))    # toInkwell
             self.ui.imagemFuncao3.setPixmap(QtGui.QPixmap(toReyes("./images/PhotoInEdition/edited.jpg")))  # toReyes
             self.ui.imagemFuncao4.setPixmap(QtGui.QPixmap(toVintage("./images/PhotoInEdition/edited.jpg"))) # toVintage
@@ -399,9 +399,9 @@ class TelaEdicao(QtWidgets.QWidget):
         
         self.ui.imagemFuncao5.setPixmap(QtGui.QPixmap("./images/EditedIcons/contrasteIcon.png")) # funcao de realçar
 
-        self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap("./images/EditedIcons/sombraIcon.png")) # Fazer filtro 6
+        self.ui.imagemFuncao6.setPixmap(QtGui.QPixmap("./images/EditedIcons/stickerIcon.png")) # Fazer filtro 6
 
-        self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap("./images/EditedIcons/nitidezIcon.png"))    # Fazer filtro 7
+        self.ui.imagemFuncao7.setPixmap(QtGui.QPixmap("./images/EditedIcons/iluminacaoIcon.png"))    # Fazer filtro 7
 
         self.ui.imagemFuncao8.setPixmap(QtGui.QPixmap("./images/EditedIcons/vinhetaIcon.png"))  # Fazer filtro 8
 
@@ -807,8 +807,6 @@ class TelaEdicao(QtWidgets.QWidget):
             self.img_dir = "./images/FuncaoDeEdicao/" # Enter Directory of all images         
             self.length = len([name for name in os.listdir(self.img_dir) ])
             
-            print("Quantas fotos editadas eu tenho: " + "{}".format(self.length))
-
             if(self.length > 0):
                 self.imagePath = "./images/FuncaoDeEdicao/edited"+"{}".format(self.length-1) + "{}".format(".jpg")
             else:
@@ -821,11 +819,9 @@ class TelaEdicao(QtWidgets.QWidget):
             if(self.queFuncaoEdicao == 0 and self.primeiraIteracao == 1):  #Brilho
                             
                 if( self.length > 0 ):
-                    
                     self.ui.imagemCentral.setPixmap(QtGui.QPixmap(brilho(self.imagePath, self.ui.slider.value(), self.length )))
         
                 else:
-                    
                     if(self.do_i_filtered_an_image == True):
                         
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(brilho(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
@@ -904,17 +900,13 @@ class TelaEdicao(QtWidgets.QWidget):
 
                 if( self.length > 0):
                     
-                    print("Pegando foto editada")
                     self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(self.imagePath, self.ui.slider.value(),self.length )))
 
                 else:
                     if(self.do_i_filtered_an_image == True):
                         
-                        print("Pegando foto filtrada")
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_FILTERED, self.ui.slider.value(), self.length)))
                     else:
-
-                        print("Pegando foto tirada")
                         self.ui.imagemCentral.setPixmap(QtGui.QPixmap(toPutGlasses(IMAGE_TAKED, self.ui.slider.value(),self.length )))
 
                 self.sliderValues[5] = self.ui.slider.value()    

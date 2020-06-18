@@ -24,14 +24,17 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
 
     elif(value == 2):
 
-        return IMAGE_NAME
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
     
     elif(value == 3):
 
         oculos = cv2.imread("./images/Stickers/oculosMulher.png", -1)
     
     else:
-        oculos = cv2.imread("./images/Stickers/tugLife.png", -1)
+        oculos = cv2.imread("./images/Stickers/oculosNormal.png", -1)
 
     ## For oculos
     
@@ -43,8 +46,10 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
 
     if(eyes_cascade == None):
 
-        print("Olhos nao encontrados")
-        return IMAGE_NAME
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
 
     else:
 
@@ -65,8 +70,11 @@ def toPutGlasses(IMAGE_NAME,value,imgNumber):
         face = cv2.cvtColor(face, cv2.COLOR_BGR2BGRA)
 
         if(vetor[0] == 0):
-            print("Olhos nao encontrados")
-            return IMAGE_NAME
+            
+            img  = cv2.imread(IMAGE_NAME)    
+            imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+            cv2.imwrite(imagem , img)   # Save the image
+            return imagem
 
         if(vetor[3] <= vetor[7]):
 

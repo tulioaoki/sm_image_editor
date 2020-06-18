@@ -20,17 +20,17 @@ class TelaFoto(QtWidgets.QWidget):
 
     imgResult = None
 
+                # [h_min, s_min, v_min, h_max, s_max, v_max]
     myColors = [[149, 157, 0, 179, 255, 255],   # [Rosa Marca-Texto]
-                    [30, 120, 90, 80, 255, 255],    # [Verde Marca-Texto]
-                    ]     # [Azul Bebe]
+            [30, 120, 90, 80, 255, 255],    # [Verde Marca-Texto]
+            [89, 42, 0, 109, 129, 255]]     # [Azul Bebe]
 
-                        ## BGR
+                 ## BGR
     myColorValues = [[255,0,255],       # [Rosa]
-                        [0,255,0],         # [Verde]
-                        [242,208,128]]      # [Azul Bebe]   
-                        #[255,0,0]] 
+                 [0,255,0],         # [Verde]
+                 [242,208,128]]      # [Azul Bebe]   
+                  
     myPoints =  []  ## [x , y , colorId ]
-    
 
 
 

@@ -13,7 +13,10 @@ def vinheta (IMAGE_NAME, value, imgNumber):
          result = multiplicador * 0.20   # 0.20 = 25/127    25:limite  127: possibilidades
          value = round(result)
      else:
-          return IMAGE_NAME
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
              
      img = cv2.imread(IMAGE_NAME)
      rows, cols = img.shape[:2]

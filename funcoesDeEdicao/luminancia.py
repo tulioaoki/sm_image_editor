@@ -8,9 +8,10 @@ def luminancia (IMAGE_NAME, value, imgNumber): # [Value eh o valor do gamma]
     # [Calcula o valor equivalente do value]
     
     if(value == 128):
-        
-        return IMAGE_NAME
-    
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
     else:
 
         multiplicador = 255 -(255 - value)

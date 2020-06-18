@@ -52,7 +52,9 @@ def saturaration(IMAGE_NAME ,value, imgNumber):
         return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
 
     else:
-        return IMAGE_NAME    
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
+
         
 #img1 = saturaration("./images/PublishedPhoto/fotoTirada.jpg" , 255 , 1)
 

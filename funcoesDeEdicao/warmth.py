@@ -54,15 +54,13 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         valor = round(result)
         img  = cv2.imread(IMAGE_NAME)    
         
-        
-        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-        print("To salvando em: " + "{}".format(imagem))
-        
         final = warm(img,valor) 
         
-        cv2.imwrite(imagem , final)   # Save the image
-        return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
         
+        cv2.imwrite(imagem , final)   # Save the image
+        
+        return imagem
 
     elif(value < 128):
               
@@ -80,8 +78,10 @@ def warmth(IMAGE_NAME ,value, imgNumber):
         
         cv2.imwrite(imagem , final)   # Save the image
         
-        return "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
-    
+        return imagem
+        
     else:
-        return IMAGE_NAME
-
+        img  = cv2.imread(IMAGE_NAME)    
+        imagem = "./images/FuncaoDeEdicao/edited" + "{}".format(imgNumber) + "{}".format(".jpg")
+        cv2.imwrite(imagem , img)   # Save the image
+        return imagem
