@@ -86,7 +86,7 @@
    <widget class="QWidget" name="scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
-      <x>-441</x>
+      <x>-470</x>
       <y>0</y>
       <width>1140</width>
       <height>142</height>
@@ -94,7 +94,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="7">
-      <widget class="QPushButton" name="filtro7">
+      <widget class="QPushButton" name="funcao7">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -108,12 +108,12 @@
         </size>
        </property>
        <property name="text">
-        <string>Filtro7</string>
+        <string>Filtro 7</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="imagemCinza">
+      <widget class="QLabel" name="imagemFuncao2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -135,7 +135,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QLabel" name="imagemSegmentada">
+      <widget class="QLabel" name="imagemFuncao3">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -160,7 +160,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QPushButton" name="normal">
+      <widget class="QPushButton" name="funcao1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -179,7 +179,7 @@
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QLabel" name="imagemBlur">
+      <widget class="QLabel" name="imagemFuncao4">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -201,7 +201,7 @@
       </widget>
      </item>
      <item row="0" column="6">
-      <widget class="QPushButton" name="filtro6">
+      <widget class="QPushButton" name="funcao6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -215,12 +215,12 @@
         </size>
        </property>
        <property name="text">
-        <string>Filtro6</string>
+        <string>Filtro 6</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QPushButton" name="cinzar">
+      <widget class="QPushButton" name="funcao2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -239,7 +239,7 @@
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="QPushButton" name="blur">
+      <widget class="QPushButton" name="funcao4">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -261,12 +261,12 @@
         </font>
        </property>
        <property name="text">
-        <string>Blur</string>
+        <string>Filtro 4</string>
        </property>
       </widget>
      </item>
      <item row="0" column="5">
-      <widget class="QPushButton" name="contraste">
+      <widget class="QPushButton" name="funcao5">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -280,12 +280,12 @@
         </size>
        </property>
        <property name="text">
-        <string>Contraste</string>
+        <string>Filtro 5</string>
        </property>
       </widget>
      </item>
      <item row="1" column="5">
-      <widget class="QLabel" name="imagemContraste">
+      <widget class="QLabel" name="imagemFuncao5">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -307,7 +307,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="imagemNormal">
+      <widget class="QLabel" name="imagemFuncao1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -329,7 +329,7 @@
       </widget>
      </item>
      <item row="1" column="6">
-      <widget class="QLabel" name="filtro6_imagem">
+      <widget class="QLabel" name="imagemFuncao6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -351,7 +351,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QPushButton" name="segmentar">
+      <widget class="QPushButton" name="funcao3">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -365,12 +365,12 @@
         </size>
        </property>
        <property name="text">
-        <string>Segmentar</string>
+        <string>Filtro 3</string>
        </property>
       </widget>
      </item>
      <item row="1" column="7">
-      <widget class="QLabel" name="filtro7_imagem">
+      <widget class="QLabel" name="imagemFuncao7">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -392,7 +392,7 @@
       </widget>
      </item>
      <item row="0" column="8">
-      <widget class="QPushButton" name="filtro8">
+      <widget class="QPushButton" name="funcao8">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -411,7 +411,7 @@
       </widget>
      </item>
      <item row="1" column="8">
-      <widget class="QLabel" name="filtro8_imagem">
+      <widget class="QLabel" name="imagemFuncao8">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -435,7 +435,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QLabel" name="image_label">
+  <widget class="QLabel" name="imagemCentral">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -514,7 +514,7 @@
     <string>Editar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="tirarFoto">
+  <widget class="QPushButton" name="voltar">
    <property name="geometry">
     <rect>
      <x>10</x>

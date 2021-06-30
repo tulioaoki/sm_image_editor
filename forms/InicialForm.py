@@ -32,12 +32,10 @@ class Ui_Inicial_Form(object):
         img_dir = "./images/PublishedPhoto/" # Enter Directory of all images         
         i = 0
 
-        length = len([name for name in os.listdir(img_dir) ]) 
-        print("ESTOU NA TELA INICIAL")
-        print("Quantidade de fotos publicadas = " + "{}".format(length) ) 
+        newList = os.listdir(img_dir)[::-1]
         
-        for fl in os.listdir(img_dir):
-          
+        for fl in newList:
+            
             if(i == 0):
                 self.image = QtWidgets.QLabel(self.scrollAreaWidgetContents)
                 sizePolicy = QtWidgets.QSizePolicy(
